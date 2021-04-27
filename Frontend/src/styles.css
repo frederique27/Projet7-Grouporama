@@ -1,0 +1,59 @@
+.formContent {
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 5%;
+    background-color: rgba(255,255,255,.6);
+    backdrop-filter: blur(5px);
+}
+
+.formLabel {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.formContent input {
+    max-width: 75%;
+    margin: auto;
+    height: 50px
+}
+
+.formContent h2 {
+    margin-bottom: 50px;
+}
+
+.btn {
+    padding: 15px 22px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.navbar {
+    padding: 25px 40px;;
+}
+
+.navbar-nav > .active > a {
+    border-bottom: 1px solid gray;
+    background-color: white!important;
+    padding: 15px 1px 3px 1px;
+}
+
+.container-fluid {
+    display: flex;
+}
+
+nav img {
+    width: 180px;
+    margin: auto;
+}
+
+body {
+    background-image: url(../src/assets/coffee-2847957_1920.jpg);
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
