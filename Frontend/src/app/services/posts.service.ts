@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Post } from '../models/post.model';
-import firebase from 'firebase';
-import DataSnapshot = firebase.database.DataSnapshot;
+import { Post } from '../models/posts.model';
+// import firebase from 'firebase';
+// import DataSnapshot = firebase.database.DataSnapshot;
 
 @Injectable()
 export class PostsService {
@@ -15,15 +15,15 @@ export class PostsService {
   }
 
   savePosts() {
-    firebase.database().ref('/posts').set(this.posts);
+    // firebase.database().ref('/posts').set(this.posts);
   }
 
   getPosts() {
-    firebase.database().ref('/posts')
-      .on('value', (data: DataSnapshot) => {
-          this.posts = data.val() ? data.val() : [];
-          this.emitPosts();
-      });
+    // firebase.database().ref('/posts')
+    //   .on('value', (data: DataSnapshot) => {
+    //       this.posts = data.val() ? data.val() : [];
+    //       this.emitPosts();
+    //   });
   }
 
   createNewPost(newPost: Post) {
@@ -44,26 +44,4 @@ export class PostsService {
     this.savePosts();
     this.emitPosts();
   }
-
-  // uploadFile(file: File) {
-  //   return new Promise(
-  //     (resolve, reject) => {
-  //       const almostUniqueFileName = Date.now().toString();
-  //       const upload = firebase.storage().ref()
-  //         .child('images/' + almostUniqueFileName + file.name).put(file);
-  //       upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
-  //         () => {
-  //           console.log('Chargement…');
-  //         },
-  //         (error) => {
-  //           console.log('Erreur de chargement ! : ' + error);
-  //           reject();
-  //         },
-  //         () => {
-  //           resolve(upload.snapshot.ref.getDownloadURL());
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
 }

@@ -38,13 +38,13 @@
     padding: 15px 1px 3px 1px;
 }
 
-.container-fluid {
-    display: flex;
-}
+/* .container-fluid {
+    display: block;
+} */
 
 nav img {
     width: 180px;
-    margin: auto;
+    margin-top: 5px;
 }
 
 body {
@@ -56,4 +56,16 @@ body {
     display: block;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+textarea.form-control {
+    min-height: 200px;
+}
+
+#formNewPost {
+    display: flex;
+}
+.newPost {
+    margin: auto;
+    width: 200px;
 }

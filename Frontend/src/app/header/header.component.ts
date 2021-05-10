@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import firebase from 'firebase';
+import { Subscription } from 'rxjs'; //
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -10,23 +12,25 @@ import firebase from 'firebase';
 export class HeaderComponent implements OnInit {
 
   isAuth: boolean;
+  authSubscription: Subscription; //
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router ) { }
 
   ngOnInit() {
-    firebase.auth().onAuthStateChanged(
-      (user) => {
-        if(user) {
-          this.isAuth = true;
-        } else {
-          this.isAuth = false;
-        }
+    this.authSubscription = this.authService.isAuth$.subscribe(
+      (authService) => {
+        this.isAuth = authService;
       }
     );
   }
 
   onSignOut() {
     this.authService.signOutUser();
+  }
+
+  newPost() {
+    this.router.navigate(['/posts', 'new']);
   }
 
 }

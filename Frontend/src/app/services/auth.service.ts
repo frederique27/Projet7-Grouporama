@@ -1,45 +1,57 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  isAuth$ = new BehaviorSubject<boolean>(false);
+  private authToken: string;
 
-  constructor() { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
-  createNewUser(email: string, password: string) {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(
-          () => {
-            resolve(null);
+  createNewUser(name: string, username: string, email: string, password: string) {
+    return new Promise( //
+      (resolve, reject) => { 
+        this.http.post('http://localhost:3000/api/auth/signup', {name: name, username: username, email: email, password: password}).subscribe(
+          (response: { message: string }) => {
+            resolve(response);
+            this.isAuth$.next(true);
           },
           (error) => {
             reject(error);
           }
         );
-      }
-    );
+      });
+  }
+
+  getToken() {
+    return this.authToken;
   }
 
   signInUser(email: string, password: string) {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.auth().signInWithEmailAndPassword(email, password).then(
-          () => {
-            resolve(null);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      }
-    );
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:3000/api/auth/signin', {email: email, password: password}).subscribe(
+        (response: { token: string }) => {
+          this.authToken = response.token;
+          this.isAuth$.next(true);
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
   }
 
   signOutUser() {
-    firebase.auth().signOut();
+      this.authToken = null;
+      this.isAuth$.next(false);
+      this.router.navigate(['signin']);
+      console.log('user signed out');
   }
 }
 

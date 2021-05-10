@@ -1,19 +1,23 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li routerLinkActive="active">
-          <a routerLink="posts">Publications</a>
-        </li>
-      </ul>
-
-      <img src="../../assets/logoGroupo.png" alt="logo entreprise Groupomania">
-
+      <a routerLink="posts">
+        <img class="float-left" src="../../assets/logoGroupo.png" alt="logo entreprise Groupomania">
+      </a>
+      
       <ul class="nav navbar-nav navbar-right">
         <li routerLinkActive="active" *ngIf="!isAuth">
           <a routerLink="auth/signup">Créer un compte</a>
         </li>
         <li routerLinkActive="active" *ngIf="!isAuth">
           <a routerLink="auth/signin">Connexion</a>
+        </li>
+        <li routerLinkActive="active">
+          <a (click)="newPost()"
+          style="cursor:pointer"
+          *ngIf="isAuth">Nouvelle publication</a>
+        </li>
+        <li routerLinkActive="active">
+          <a *ngIf="isAuth">Profil</a>
         </li>
         <li>
             <a (click)="onSignOut()"

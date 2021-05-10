@@ -1,23 +1,19 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-// import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostFormComponent } from './post-list/post-form/post-form.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { PostsService } from './services/posts.service';
 import { AuthService } from './services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 const appRoutes: Routes = [
-  { path: 'auth/signup', component: SignupComponent },
-  { path: 'auth/signin', component: SigninComponent },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   { path: 'posts', canActivate: [AuthGuardService], component: PostListComponent },
   { path: 'posts/new', canActivate: [AuthGuardService], component: PostFormComponent },
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
@@ -27,19 +23,15 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    SigninComponent,
     PostListComponent,
     PostFormComponent,
     HeaderComponent
   ],
   imports: [
-    BrowserModule,
-    // AppRoutingModule,
+    SharedModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    AuthModule,
+    BrowserModule,
   ],
   providers: [
     AuthService,

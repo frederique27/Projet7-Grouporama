@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Post } from '../../models/post.model';
+import { Post } from '../../models/Posts.model';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
 
@@ -25,21 +25,21 @@ export class PostFormComponent implements OnInit {
   
   initForm() {
     this.postForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      author: ['', Validators.required],
-      synopsis: ''
+      textPost: ['', Validators.required],
+      // author: ['', Validators.required],
+      // synopsis: ''
     });
   }
   
   onSavePost() {
-    const title = this.postForm.get('title').value;
-    const author = this.postForm.get('author').value;
-    const synopsis = this.postForm.get('synopsis').value;
-    const newPost = new Post(title, author);
+    const textPost = this.postForm.get('textPost').value;
+    // const author = this.postForm.get('author').value;
+    // const synopsis = this.postForm.get('synopsis').value;
+    const newPost = new Post(textPost);
     // if(this.fileUrl && this.fileUrl !== '') {
     //   newPost.photo = this.fileUrl;
     // }
-    newPost.synopsis = synopsis;
+    // newPost.synopsis = synopsis;
     this.postsService.createNewPost(newPost);
     this.router.navigate(['/posts']);
   }
