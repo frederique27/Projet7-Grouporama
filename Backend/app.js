@@ -2,18 +2,18 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
 const path = require('path');
-// const { sequelize } = require('./models');
 const { expressShield } = require("node-shield");
 const helmet = require("helmet"); 
 require('dotenv').config();
 
 //Importation des routes
-// const sequelize = require('./util/database');
 const userRoutes = require('./routes/user.routes');
+const postRoutes = require('./routes/post.routes');
 // const Post = require('./models/Post');
 // const User = require('./models/user');
 
 const db = require('./config/db.config');
+
 
 //Application express 
 const app = express();
@@ -47,7 +47,8 @@ db.sequelize.sync({force: true})
   .catch(err => console.log('sync échouée: ' + err));
 
 //Routes
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
+app.use('/api/posts', postRoutes);
 
-
-module.exports = app;
+module.exports = app; 

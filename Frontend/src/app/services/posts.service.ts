@@ -1,47 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Post } from '../models/posts.model';
-// import firebase from 'firebase';
-// import DataSnapshot = firebase.database.DataSnapshot;
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable()
 export class PostsService {
 
   posts: Post[] = [];
-  postsSubject = new Subject<Post[]>();
-
-  emitPosts() {
-    this.postsSubject.next(this.posts);
-  }
-
-  savePosts() {
-    // firebase.database().ref('/posts').set(this.posts);
-  }
+  postsSubject$ = new Subject<Post[]>();
+  
+  constructor(private http: HttpClient) {}
 
   getPosts() {
-    // firebase.database().ref('/posts')
-    //   .on('value', (data: DataSnapshot) => {
-    //       this.posts = data.val() ? data.val() : [];
-    //       this.emitPosts();
-    //   });
-  }
-
-  createNewPost(newPost: Post) {
-    this.posts.push(newPost);
-    this.savePosts();
-    this.emitPosts();
-  }
-
-  removePost(post: Post) {
-    const postIndexToRemove = this.posts.findIndex(
-      (postEl) => {
-        if(postEl === post) {
-          return true;
+      this.http.get<any>('http://localhost:3000/api/posts').subscribe(
+        response => {
+          console.log(response);
+          this.posts = response;
         }
-      }
-    );
-    this.posts.splice(postIndexToRemove, 1);
-    this.savePosts();
-    this.emitPosts();
+      );
   }
+
+
+  createNewPost(textPost: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:3000/api/posts', {textPost: textPost} ).subscribe(
+        (response: { message: string }) => {
+          this.postsSubject$.next(this.posts);
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
 }
