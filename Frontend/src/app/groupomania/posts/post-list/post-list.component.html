@@ -1,10 +1,12 @@
 <div class="row">
-    <div class="col-xs-12">
-      <h2>Vos publications</h2>
-      <div class="card post" style="width: 18rem; margin: auto;" *ngFor="let post of posts">
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-      <!-- <div class="card-body"> -->
-        <p class="card-text">{{ post.textPost }}</p>
-      </div>
-    </div>
+    <!-- <div class="col-xs-12"> -->
+      	<div class="card post" *ngFor="let post of posts">
+			<!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+			<img class="postImg card-img-top" [src]="post.photo">
+			<div class="card-body">
+				<p class="card-text">{{ post.textPost }}</p>
+			</div>
+      	</div>
+    <!-- </div> -->
 </div>
+<pre>{{ posts | json }}</pre>

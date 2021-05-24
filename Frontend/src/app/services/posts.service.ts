@@ -1,38 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Post } from '../models/posts.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { TestHttp } from '../http/test.http';
 @Injectable()
 export class PostsService {
-
-  posts: Post[] = [];
-  postsSubject$ = new Subject<Post[]>();
   
-  constructor(private http: HttpClient) {}
+  constructor(private testHttp: TestHttp) {}
 
   getPosts() {
-      this.http.get<any>('http://localhost:3000/api/posts').subscribe(
-        response => {
-          console.log(response);
-          this.posts = response;
-        }
-      );
+    return this.testHttp.getTest()
   }
 
 
-  createNewPost(textPost: string) {
-    return new Promise((resolve, reject) => {
-      this.http.post('http://localhost:3000/api/posts', {textPost: textPost} ).subscribe(
-        (response: { message: string }) => {
-          this.postsSubject$.next(this.posts);
-          resolve(response);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
+  createNewPost(textPost: string, photo: File) {
+    const formData: FormData = new FormData()
+    formData.append("image", photo)
+    formData.append("textPost", textPost)
+    console.log(photo);
+    return this.testHttp.postTest(formData)
+
   }
 
 }

@@ -1,0 +1,19 @@
+.navbar {
+    padding: 25px 40px;
+    background-color: white;
+}
+
+.navbar a {
+    padding: 15px 0 3px 0;
+    margin-left: 20px;
+}
+
+.navbar-nav > .active > a {
+    border-bottom: 1px solid gray;
+    background-color: white!important;
+}
+
+nav img {
+    width: 180px;
+    margin-top: 5px;
+}

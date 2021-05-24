@@ -1,0 +1,23 @@
+textarea.form-control {
+    min-height: 200px;
+}
+
+#formNewPost {
+    display: flex;
+}
+.newPost {
+    margin: auto;
+    width: 170px;
+}
+#xBtn {
+    width: 28px;
+    font-size: 18px;
+    border: 1px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #337ab7;
+    color: white;
+    cursor: pointer;
+}

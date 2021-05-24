@@ -1,12 +1,12 @@
-// import { HttpClient } from "@angular/common/http";
-// import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
-// @Injectable ({ providedIn: 'root'})
+@Injectable ({ providedIn: 'root'})
 
-// export class InterfaceHttp {
-//     url: string;
+export class InterfaceHttp {
+    url: string;
 
-//     constructor (protected httpClient: HttpClient) {
-//         this.url = ''
-//     }
-// } 
+    constructor (protected httpClient: HttpClient) {
+        this.url = 'http://localhost:3000/api/';
+    }
+} 

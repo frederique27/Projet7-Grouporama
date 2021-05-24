@@ -1,4 +1,32 @@
-.formContent {
+/* BODY */
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    z-index: 0;
+  }
+  body::after {
+    background: url(../src/assets/coffee-2847957_1920.png);
+    content: "";
+    opacity: 0.9;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;   
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  
+
+  /* FORMULAIRE AUTH + NEW POST */
+
+  .formContent {
     border-radius: 10px;
     text-align: center;
     /* padding: 30px 10px; */
@@ -29,62 +57,6 @@
     font-size: 16px;
     margin-top: 20px;
 }
-
-.navbar {
-    padding: 25px 40px;;
-}
-
-.navbar-nav > .active > a {
-    border-bottom: 1px solid gray;
-    background-color: white!important;
-    padding: 15px 1px 3px 1px;
-}
-
-/* .container-fluid {
-    display: block;
-} */
-
-nav img {
-    width: 180px;
-    margin-top: 5px;
-}
-
-body {
-    background-image: url(../src/assets/coffee-2847957_1920.png); 
-    position: fixed;
-    left: 0; 
-    right: 0;
-    z-index: 1;
-    display: block;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-textarea.form-control {
-    min-height: 200px;
-}
-
-#formNewPost {
-    display: flex;
-}
-.newPost {
-    margin: auto;
-    width: 170px;
-}
-#xBtn {
-    width: 28px;
-    font-size: 18px;
-    border: 1px solid white;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background-color: #337ab7;
-    color: white;
-    cursor: pointer;
-}
-
-
 
 
 /* .form-control {
