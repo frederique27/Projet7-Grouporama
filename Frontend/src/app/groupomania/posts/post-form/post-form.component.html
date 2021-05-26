@@ -1,28 +1,37 @@
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2 formContent">
-		<div id="xBtn" routerLink="posts">x</div>
-		<h2>Ajouter une publication</h2>
-      	<form [formGroup]="postForm" (ngSubmit)="onSavePost()">
-        	<div class="form-group">
-				<textarea id="textPost"
-					class="form-control" formControlName="textPost" placeholder="Ajouter un texte ici">
-				</textarea>
-        	</div>
-        	<div id="formNewPost">
-            	<!-- <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p> -->
-				<input #fileInput 
-				style="display: none" 
-				type="file" (change)="detectFiles($event.target.files)"
-				class="form-control">
+<div class="col-sm-8 formContent">
+	<div id="xBtn" routerLink="posts"><p>x</p></div>
+	<h2>Exprimez-vous...</h2>
+	<form [formGroup]="postForm" (ngSubmit)="onSavePost()">
+		<div class="form-group">
+			<editor
+				apiKey="u0eog1hcputib65bhuf63vh2mudkoemqvakn6qqcqfsotg0b"
+				[init]="{
+					menubar: false,
+					plugins: [
+					'emoticons advlist autolink lists link image charmap print preview anchor',
+					'searchreplace visualblocks code fullscreen',
+					'insertdatetime media table paste code help wordcount'
+					],
+					toolbar:
+					'fontselect | emoticons | bullist | bold italic strikethrough backcolor'
+				}"
+				class="form-control" formControlName="textPost" 
+			></editor>
+		</div>
+		<div id="formNewPost">
+			<!-- <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p> -->
+			<input #fileInput 
+			style="display: none" 
+			type="file" (change)="detectFiles($event.target.files)"
+			class="form-control">
 
-				<button type="button" (click)="fileInput.click()">Pick File</button>
-            	<img [src]="photo" *ngIf="photo" style="max-height: 100px;display:block;margin-top:10px">
+			<button class="btn" type="button" (click)="fileInput.click()">Choisir une image</button>
+			<img [src]="photo" *ngIf="photo" style="max-height: 100px;display:block;margin-top:10px">
 
-				<button class="btn btn-primary newPost" 
-				[disabled]="postForm.invalid"
-				type="submit">Publier
-				</button>
-        	</div>
-     	 </form>
-    </div>
+			<button class="btn" 
+			[disabled]="postForm.invalid"
+			type="submit">Publier
+			</button>
+		</div>
+	</form>
 </div>

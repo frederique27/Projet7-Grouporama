@@ -1,12 +1,33 @@
-<div class="row">
-    <!-- <div class="col-xs-12"> -->
-      	<div class="card post" *ngFor="let post of posts">
-			<!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-			<img class="postImg card-img-top" [src]="post.photo">
-			<div class="card-body">
-				<p class="card-text">{{ post.textPost }}</p>
-			</div>
-      	</div>
-    <!-- </div> -->
+<div class="container mt-5 mb-5">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6">
+            <div class="card" *ngFor="let post of posts">
+                <div class="d-flex justify-content-between p-2 px-3">
+                    <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle profilePic">
+                        <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">Jeanette Sun</span> <small class="mr-2">Publié le 25/05/2021</small> </div>
+                    </div>
+                    <div class="d-flex flex-row mt-1"> <small class="mr-2">Supprimer</small> </div>
+                </div> 
+                <img [src]="post.photo" class="img-fluid">
+                <div class="p-2">
+                    <p class="text-justify" [innerHtml]="post.textPost | dompurify"></p>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-row icons d-flex align-items-center">Like Dislike</div>
+                        <div class="d-flex flex-row muted-color"> <span>2 comments</span></div>
+                    </div>
+                    <hr>
+                    <div class="comments">
+                        <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40" class="rounded-image profilePic">
+                            <div class="d-flex flex-column ml-2"> <span class="name">Daniel Frozer</span> <small class="comment-text">Yé booo ton chat</small>
+                            </div>
+                        </div>
+                        <div class="comment-input"> <input type="text" class="form-control" placeholder="Exprimez-vous">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <pre>{{ posts | json }}</pre>

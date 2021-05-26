@@ -1,12 +1,11 @@
 /* BODY */
-
 body {
     width: 100%;
     min-height: 100vh;
     display: block;
     position: relative;
     margin: 0 auto;
-    z-index: 0;
+    z-index: 0; 
   }
   body::after {
     background: url(../src/assets/coffee-2847957_1920.png);
@@ -29,33 +28,33 @@ body {
   .formContent {
     border-radius: 10px;
     text-align: center;
-    /* padding: 30px 10px; */
-    padding: 0 15px 30px 15px;
-    margin-top: 5%;
-    /* background-color: rgba(255,255,255,.7); */
-    background-color: rgb(212 217 222 / 70%);
-    /* backdrop-filter: blur(5px); */
+    padding: 15px 30px;
+    background-color: rgb(228 228 228 / 80%); 
+    margin: 40px auto;
 }
 
 .formLabel {
     text-align: left;
-    margin-bottom: 10px;
 }
 
 .formContent input {
     max-width: 75%;
-    margin: auto;
-    height: 50px
+    margin: 0 auto 10px;
+    height: 50px;
+    border-radius: 26px;
 }
 
 .formContent h2 {
-    margin-bottom: 50px;
+    padding: 20px 0;
 }
 
 .btn {
-    padding: 15px 22px;
+    padding: 10px 15px!important;
     font-size: 16px;
     margin-top: 20px;
+    color: white!important;
+    background-color: rgb(90 109 212)!important;
+    border-color: rgb(90 109 212)!important;
 }
 
 

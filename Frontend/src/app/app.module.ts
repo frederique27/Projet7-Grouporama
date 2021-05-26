@@ -8,8 +8,6 @@ import { PostsModule } from './groupomania/posts/posts.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HeaderComponent } from './groupomania/header/header.component'; 
-import { CommonModule } from '@angular/common';
-// import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 const appRoutes: Routes = [ 
@@ -30,8 +28,6 @@ const appRoutes: Routes = [
     AuthModule,
     PostsModule,
     BrowserModule,
-    CommonModule
-    // EditorModule
   ],
   providers: [
     AuthService,

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostsService } from '../../../services/posts.service';
 import { Router } from '@angular/router';
 import { Post } from '../../models/Posts.model';
-
+import tinymce from 'tinymce';
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
@@ -23,6 +23,8 @@ export class PostFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
   }
+
+ 
   
   initForm() {
     this.postForm = this.formBuilder.group({
@@ -44,12 +46,5 @@ export class PostFormComponent implements OnInit {
     const file = files.item(0);
     console.log(file);
     this.file = files.item(0);
-    // this.postForm.get('photo').setValue(file);
-    // this.postForm.updateValueAndValidity();
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.photo = reader.result as string;
-    // };
-    // reader.readAsDataURL(file);
   }
 }

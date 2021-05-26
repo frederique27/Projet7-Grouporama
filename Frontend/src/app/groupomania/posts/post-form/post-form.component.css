@@ -1,14 +1,13 @@
 textarea.form-control {
     min-height: 200px;
+    margin-bottom: 20px;
 }
 
 #formNewPost {
     display: flex;
+    justify-content: space-between;
 }
-.newPost {
-    margin: auto;
-    width: 170px;
-}
+
 #xBtn {
     width: 28px;
     font-size: 18px;
@@ -17,7 +16,17 @@ textarea.form-control {
     position: absolute;
     top: 2px;
     right: 2px;
-    background-color: #337ab7;
+    background-color: rgb(90 109 212);
     color: white;
     cursor: pointer;
+}
+
+#xBtn p {
+    margin: 0;
+    position: relative;
+    top: -1.5px;
+}
+
+.formContent {
+    position: relative;
 }

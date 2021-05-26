@@ -8,7 +8,7 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
  
   pool: {
     max: env.max,
-    min: env.min,
+    min: env.min, 
     acquire: env.acquire,
     idle: env.idle
   }
