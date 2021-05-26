@@ -4,6 +4,7 @@ import { PostsRoutingModule } from "./posts.routing.module";
 import { PostListComponent } from "./post-list/post-list.component";
 import { PostFormComponent } from "./post-form/post-form.component";
 import {NgDompurifyModule} from '@tinkoff/ng-dompurify';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {NgDompurifyModule} from '@tinkoff/ng-dompurify';
   imports: [
     PostsRoutingModule,
     SharedModule,
-    NgDompurifyModule
+    NgDompurifyModule,
+    FontAwesomeModule
   ],
   providers: [
   ],

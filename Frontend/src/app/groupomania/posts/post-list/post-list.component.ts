@@ -4,7 +4,10 @@ import { Post } from '../../models/Posts.model';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
+import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
+
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-post-list',
@@ -14,7 +17,9 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 // export class PostListComponent implements OnInit, OnDestroy {
   export class PostListComponent implements OnInit {
-  faCoffee = faCoffee;
+  faThumbsUp = faThumbsUp;
+  faThumbsDown = faThumbsDown;
+  faTrash = faTrashAlt;
   posts: Post[];
 
   constructor(private postsService: PostsService, private router: Router) {}
