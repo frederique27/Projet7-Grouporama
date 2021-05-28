@@ -5,23 +5,22 @@ const db = require('../config/db.config.js');
 const User = db.user;
 
 exports.signup = (req, res, next) => {
-    User.create({
-		name: req.body.name,
-		username: req.body.username,
-		email: req.body.email,
-		password: bcrypt.hashSync(req.body.password, 8)
-    }).then (user => {
+	bcrypt.hash(req.body.password, 10)
+	.then(hash => {
+		User.create({
+			name: req.body.name,
+			username: req.body.username,
+			email: req.body.email,
+			password: hash
+		})
+	.then (user => {
                 res.status(201).json({
-                    token :jwt.sign(
-                        { userId: user._id },
-                        JWTOKEN,
-                        { expiresIn: '24h' }
-                    ), 
-                }) 
-            }) 
-        .catch(err => {
-		res.status(500).send("Fail! Error -> " + err);
+					message : 'Inscription effectuée.'
+                })  
+    }) 
+        .catch(err =>  res.status(500).send("Fail! Error -> " + err));
 	})
+	.catch(error => res.status(500).json({ error }))
 };
 
 exports.signin = (req, res, next) => {
@@ -41,10 +40,16 @@ exports.signin = (req, res, next) => {
 			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
 		}
 		
-		let token = jwt.sign({ id: user.id }, JWTOKEN, {
-		  expiresIn: 86400 // expires in 24 hours
+		let token = jwt.sign
+		({ userId: user.id }, 
+			JWTOKEN,
+		{ expiresIn: 86400 });
+		res.setHeader('Authorization', 'Bearer ' + token);
+		res.status(200).send({ 
+			auth: true, 
+			authToken: token + ' ' + user.id,
+			userId: user.id,
 		});
-		res.status(200).send({ auth: true, accessToken: token });
 		
 	}).catch(err => {
 		res.status(500).send({reason: err.message});

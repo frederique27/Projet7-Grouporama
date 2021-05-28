@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   isAuth$ = new BehaviorSubject<boolean>(false);
-  private authToken: string;
+  authToken: string;
+  userId: string;
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -19,7 +20,7 @@ export class AuthService {
         this.http.post('http://localhost:3000/api/auth/signup', {name: name, username: username, email: email, password: password}).subscribe(
           (response: { message: string }) => {
             resolve(response);
-            this.isAuth$.next(true);
+            // this.isAuth$.next(true);
           },
           (error) => {
             reject(error);
@@ -32,11 +33,18 @@ export class AuthService {
     return this.authToken;
   }
 
+  getUserId() {
+    return this.userId;
+  }
+
   signInUser(email: string, password: string) {
     return new Promise((resolve, reject) => {
-      this.http.post('http://localhost:3000/api/auth/signin', {email: email, password: password}).subscribe(
-        (response: { token: string }) => {
-          this.authToken = response.token;
+      this.http.post('http://localhost:3000/api/auth/signin', {email: email, password: password, withCredentials: true}).subscribe(
+        (response: { userId: string, authToken: string }) => {
+          this.userId = response.userId;
+          this.authToken = response.authToken;
+          console.log(this.userId);
+          console.log(this.authToken);
           this.isAuth$.next(true);
           resolve(response);
         },
@@ -49,6 +57,7 @@ export class AuthService {
 
   signOutUser() {
       this.authToken = null;
+      this.userId = null;
       this.isAuth$.next(false);
       this.router.navigate(['signin']);
       console.log('user signed out');

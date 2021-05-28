@@ -1,15 +1,30 @@
+'use strict'
+const {Model} = require('sequelize');
 module.exports = (sequelize, Sequelize) => {
-    const Post = sequelize.define('posts', {
-        id: {
-            type: Sequelize.INTEGER,
+    // const Post = sequelize.define('posts', {
+      class Post extends Model {
+        static associate(models) {
+          models.Post.belongsTo(models.User, {
+            // foreignKey: 'userId',
+            // onDelete: 'CASCADE',
+            // foreignKey: {
+            //   allowNull: false
+            // }
+          });
+        }
+      };
+      Post.init ({
+          id: {
+            type: Sequelize.INTEGER(11).UNSIGNED,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
-        // ownerId: { 
-        //     type: Sequelize.INTEGER,
-        //     allowNull: false
-        //  },
+        userId: { 
+            // type: Sequelize.INTEGER(11).UNSIGNED,
+            type: Sequelize.STRING,
+            // allowNull: false
+         },
         photo: { type: Sequelize.STRING },
         textPost: { 
             type: Sequelize.TEXT,
@@ -27,7 +42,11 @@ module.exports = (sequelize, Sequelize) => {
                   }
                 },
             }
-        },
+        }
+      }, {
+        sequelize, 
+        modelName: 'Post',
     });
     return Post;
   };
+

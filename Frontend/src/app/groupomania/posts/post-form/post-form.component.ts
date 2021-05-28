@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostsService } from '../../../services/posts.service';
 import { Router } from '@angular/router';
 import { Post } from '../../models/Posts.model';
+import { AuthService } from '../../../services/auth.service'
+
 import tinymce from 'tinymce';
 @Component({
   selector: 'app-post-form',
@@ -17,8 +19,12 @@ export class PostFormComponent implements OnInit {
   file: File;
 
 
-  constructor(private formBuilder: FormBuilder, private postsService: PostsService,
-              private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private postsService: PostsService,
+    private router: Router,
+    private authService : AuthService
+    ) { }
               
   ngOnInit() {
     this.initForm();
@@ -35,7 +41,9 @@ export class PostFormComponent implements OnInit {
   
   onSavePost() {
     const textPost = this.postForm.get('textPost').value; 
-    this.postsService.createNewPost(textPost, this.file).subscribe({  
+    const userId = this.authService.getUserId();
+    console.log(userId);
+    this.postsService.createNewPost(textPost, this.file, userId).subscribe({  
       next: response => console.log(response),
       error: error => console.error (error)
     })

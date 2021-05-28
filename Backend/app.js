@@ -9,8 +9,8 @@ require('dotenv').config();
 //Importation des routes
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
-// const Post = require('./models/Post');
-// const User = require('./models/user');
+// const Post = require('./models/post.model');
+// const User = require('./models/user.model');
 
 const db = require('./config/db.config');
 
