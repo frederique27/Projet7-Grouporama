@@ -43,8 +43,6 @@ export class AuthService {
         (response: { userId: string, authToken: string }) => {
           this.userId = response.userId;
           this.authToken = response.authToken;
-          console.log(this.userId);
-          console.log(this.authToken);
           this.isAuth$.next(true);
           resolve(response);
         },

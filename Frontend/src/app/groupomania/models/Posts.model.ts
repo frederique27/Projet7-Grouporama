@@ -10,8 +10,9 @@ export class Post {
     public textPost: string,
     public photo: string,
     public id: number,
-    public userId: string
-    // public id: string
+    public userId: string,
+    public likes: number,
+    // public dislikes: number,
     ) {
   }
 }

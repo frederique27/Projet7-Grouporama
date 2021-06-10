@@ -1,6 +1,5 @@
 const db = require('../config/db.config.js');
 const dbPost = db.post;
-const dbUser = db.user;
 const fs = require('fs');
 
 function getUserIdFromRequest(req) {
@@ -14,7 +13,7 @@ exports.getAllPosts = (req, res, next) => {
     ],
     })
       .then(post => {
-          console.log(post);
+        //   console.log(post);
           res.status(200).json(post); 
       })
       .catch(error => res.status(402).json({ error }));
@@ -37,18 +36,21 @@ exports.createPost = (req, res, next) => {
 
 //routes DELETE
 exports.deletePost = (req, res, next) => {
+    const postId = req.params.id;
     dbPost.findOne({ 
-        where: { id: req.params.id }
+        where: { id: postId }
     }).then(post => {
           if (post.photo) {
             const filename = post.photo.split('/images/')[1]; //récupère 2e élément du tableau (nom du fichier)
             fs.unlink(`images/${filename}`, (err) => {
                 if (err) throw err;
             })
-            dbPost.destroy({ where: { id: req.params.id } }) //ensuite supprime de la base de donnée
+            dbPost.destroy({ where: { id: postId } }) //ensuite supprime de la base de donnée
 			.then(() => res.status(200).json({ message: 'Post supprimé !' }))
 			.catch(error => res.status(403).json({ error }));
         }
 		})
 	  .catch(error => res.status(500).json({ error }));
 };
+
+

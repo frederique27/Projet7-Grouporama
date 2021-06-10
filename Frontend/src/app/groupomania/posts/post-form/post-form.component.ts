@@ -42,7 +42,6 @@ export class PostFormComponent implements OnInit {
   onSavePost() {
     const textPost = this.postForm.get('textPost').value; 
     const userId = this.authService.getUserId();
-    console.log(userId);
     this.postsService.createNewPost(textPost, this.file, userId).subscribe({  
       next: response => console.log(response),
       error: error => console.error (error)

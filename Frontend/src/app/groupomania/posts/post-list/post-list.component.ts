@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../../services/posts.service';
 import { Post } from '../../models/Posts.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -8,6 +8,9 @@ import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../../../services/auth.service';
+import { LikeService } from 'src/app/services/like.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommentService } from 'src/app/services/comment.service';
 
 
 @Component({
@@ -16,62 +19,124 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./post-list.component.css']
 })
 
-// export class PostListComponent implements OnInit, OnDestroy {
   export class PostListComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faThumbsDown = faThumbsDown;
   faTrash = faTrashAlt;
+
   posts: Post[];
   userId: string;
   id: number;
+  likes: number;
   postSub: Subscription;
   posts$ = new Subject<Post[]>();
+
+  //COMMENTS//
+  commentForm: FormGroup;
 
 
   constructor(
     private postsService: PostsService, 
-    private router: Router,
-    private authService : AuthService
+    private authService : AuthService,
+    private likeService: LikeService,
+    private commentService: CommentService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
-    // this.postsService.getPosts().subscribe({
-    //   next: posts => this.posts = posts,
-    //   error: error => console.error (error)
-    // })
-    this.postSub = this.posts$.subscribe(
-      (posts) => {
-        this.posts = posts;
-      }
-    );
-    this.postsService.getPosts().subscribe(
-      (posts: Post[]) => {
-        this.posts$.next(posts);
-      },
-      (error) => {
-        this.posts$.next([]);
-        console.error(error);
-      }
-    );
+    this.getPosts();
+    this.initForm();
   }
 
-  // public onDeletePost(id: number): void {
-  //   // const postId: number = parseInt(event.target[0].value, 10);
-  //   // console.log(postId);
-  //   this.postsService.deletePost(id)
-  //     .subscribe({
-  //       next: response => console.log(response),
-  //       error: error => console.error (error)
-  //     })
-  //     // console.log('LE' + id);
-  // }
-  // onDeletePost() {
-  //   this.postsService.deletePost(this.posts.id).subscribe({
-  //     next: response => console.log(response),
+  getPosts(){
+    this.postsService.getPosts().subscribe({
+      next: posts => this.posts = posts,
+      error: error => console.error (error)
+    })
+  }
+
+  onDeletePost(post) {
+    this.postsService.deletePost(post.id).subscribe({
+      next: res => this.getPosts(),
+      error: error => console.error (error)
+    })
+  }
+ 
+  // onLikePost(post){
+  // console.log(post.id);
+  // console.log(post.likes);
+  // console.log(this.userId);
+  //   this.likeService.likePost(this.userId, post.id).subscribe({
+  //     next: res => this.postsService.getPosts(),
+  //     // next: res => console.log("you liked this post"),
   //     error: error => console.error (error)
   //   })
   // }
+  
+  // onPublicationLike(idPublication: number): void {
+  //   const publicationLike = {
+  //     idpublication: idPublication,
+  //     like: 1
+  //   };
+  //   if (this.publication.likeValue) {
+  //     publicationLike.like = 0;
+  //   }
+  //   this.likeService.postLikePublication(publicationLike)
+  //     .subscribe(() => {
+  //       this.publicationService.getPublications();
+  //     });
+  // }
+  onLikePost(post) {
+    const publicationLike = {
+      postId: post.id,
+      likes: 1
+    };
+    if (post.likes) {
+      publicationLike.likes = 0;
+    }
+    this.likeService.likePost(publicationLike)
+      .subscribe(() => {
+        this.postsService.getPosts();
+      });
+  }
 
+  onDislikePost(post) {
+    const publicationLike = {
+      postId: post.id,
+      likes: -1
+    };
+    if (post.likes) {
+      publicationLike.likes = 0;
+    }
+    this.likeService.likePost(publicationLike)
+      .subscribe(() => {
+        this.postsService.getPosts();
+      });
+  }
 
+  // onDislikePost(post){
+  //   const dislikes = this.nbOfDislikes ++;
+  //   this.likeService.likePost(post.id, dislikes).subscribe({
+  //     next: res => this.postsService.getPosts(),
+  //     error: error => console.error (error)
+  //   })
+  // }
+  initForm() {
+    this.commentForm = this.formBuilder.group({
+      textComment: ['', Validators.required],
+    });
+  }
+
+  submitComment(event) {
+    if (event.keyCode === 13) {
+      alert('you just pressed the enter key');
+      const textComment = this.commentForm.get('textComment').value; 
+      // const userId = this.authService.getUserId();
+      this.commentService.newComment(textComment).subscribe({  
+        next: response => console.log(response),
+        error: error => console.error (error)
+      })
+    }
+  }
 }

@@ -42,7 +42,11 @@ module.exports = (sequelize, Sequelize) => {
                   }
                 },
             }
-        }
+        },
+        likes: { type: Sequelize.INTEGER,
+                  defaultValue: 0 },
+        dislikes: { type: Sequelize.INTEGER,
+                    defaultValue: 0 },
       }, {
         sequelize, 
         modelName: 'Post',

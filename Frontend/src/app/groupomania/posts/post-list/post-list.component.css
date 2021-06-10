@@ -84,3 +84,7 @@ hr {
     font-size: 20px;
     cursor: pointer;
 }
+
+.iconThumbs {
+    cursor: pointer;
+}

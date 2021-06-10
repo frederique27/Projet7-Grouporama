@@ -8,6 +8,8 @@ import { PostsModule } from './groupomania/posts/posts.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HeaderComponent } from './groupomania/header/header.component'; 
+import { LikeService } from './services/like.service';
+import { CommentService } from './services/comment.service';
 
 
 const appRoutes: Routes = [ 
@@ -31,7 +33,9 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
-    PostsService
+    PostsService,
+    LikeService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

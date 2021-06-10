@@ -4,11 +4,11 @@
             <div class="card" *ngFor="let post of posts">
                 <div class="d-flex justify-content-between p-2 px-2">
                     <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle profilePic">
-                        <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">Jeanette Sun{{post.id}}</span> <small class="mr-2">Publié le {{post.createdAt | date: 'dd/MM/yyyy'}}</small> </div>
+                        <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">username</span> <small class="mr-2">Publié le {{post.createdAt | date: 'dd/MM/yyyy'}}</small> </div>
                     </div>
                     <div class="d-flex flex-row mt-1"> 
                         <a id="iconTrash"
-                        (click)="onDeletePost()">
+                            (click)="onDeletePost(post)">
                             <fa-icon [icon]="faTrash"></fa-icon>
                         </a>                        
                     </div>
@@ -18,18 +18,32 @@
                     <p class="text-justify" [innerHtml]="post.textPost | dompurify"></p>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex flex-row icons d-flex align-items-center"><fa-icon class="iconThumbs" [icon]="faThumbsUp"></fa-icon>     <fa-icon [icon]="faThumbsDown"></fa-icon></div>
+                        <div class="d-flex flex-row icons d-flex align-items-center">
+                            <p>{{post.likes}}</p>
+                            <a (click)="onLikePost(post)">
+                                <fa-icon class="iconThumbs" [icon]="faThumbsUp"></fa-icon>
+                            </a>
+                            <p>{{post.dislikes}}</p>
+                            <a (click)="onDislikePost(post)">
+                                <fa-icon class="iconThumbs" [icon]="faThumbsDown"></fa-icon>
+                            </a>
+                        </div>
                         <div class="d-flex flex-row muted-color"> <span>2 comments</span></div>
                     </div>
                     <hr>
-                    <div class="comments">
+                    <div class="comments" *ngFor="let comment of post.comments">
                         <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40" class="rounded-image profilePic">
-                            <div class="d-flex flex-column ml-2"> <span class="name">Daniel Frozer</span> <small class="comment-text">Yé booo ton chat</small>
+                            <div class="d-flex flex-column ml-2"> 
+                                <span class="name">username</span> 
+                                <small class="comment-text">comments:</small>
                             </div>
                         </div>
-                        <div class="comment-input"> <input type="text" class="form-control" placeholder="Exprimez-vous">
-                        </div>
                     </div>
+                    <form [formGroup]="commentForm" (keydown)="submitComment($event)">
+                        <div class="comment-input"> 
+                            <input type="text" class="form-control" formControlName="textComment" placeholder="Exprimez-vous">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

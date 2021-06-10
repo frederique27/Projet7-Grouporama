@@ -9,8 +9,7 @@ require('dotenv').config();
 //Importation des routes
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
-// const Post = require('./models/post.model');
-// const User = require('./models/user.model');
+const likeCommentRoutes = require('./routes/likeComment.routes')
 
 const db = require('./config/db.config');
 
@@ -37,9 +36,6 @@ app.use(expressShield({
   },
 }));
 
-// Post.belongsTo(User);
-// User.hasMany(Post);
-
 
 //Connexion DB
 db.sequelize.sync({force: true})
@@ -50,5 +46,6 @@ db.sequelize.sync({force: true})
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/posts', likeCommentRoutes);
 
 module.exports = app; 

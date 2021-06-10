@@ -8,7 +8,7 @@ body {
     z-index: 0; 
   }
   body::after {
-    background: url(../src/assets/coffee-2847957_1920.png);
+    background: url(../src/assets/coffee-2847957_1920.png); 
     content: "";
     opacity: 0.9;
     position: absolute;

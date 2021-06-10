@@ -17,12 +17,12 @@ export class PostsService {
     formData.append("image", photo)
     formData.append("textPost", textPost)
     // formData.append("userId", userId)
-    console.log(photo);
+    // console.log(photo);
     return this.testHttp.createPost(formData)
 
   }
 
-  deletePost(id: number) {
+  deletePost(id) {
     return this.testHttp.deletePost(id)
   }
 

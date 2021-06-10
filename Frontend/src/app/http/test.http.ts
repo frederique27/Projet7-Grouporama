@@ -16,8 +16,17 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.post(`${this.url}posts/new`, formData)
     }
 
-    deletePost(id: number){
-        return this.httpClient.delete(`${this.url}` + id)
+    deletePost(id){
+        return this.httpClient.delete(`${this.url}posts/`+id)
+    }
+
+    likePost(publicationLike){
+        // return this.httpClient.post(`${this.url}posts/like`, id, likes)
+        return this.httpClient.post(`${this.url}posts/like`, publicationLike)
+    }
+
+    newComment(formdata: FormData){
+        return this.httpClient.post(`${this.url}posts/comment`, formdata)
     }
 
 } 
