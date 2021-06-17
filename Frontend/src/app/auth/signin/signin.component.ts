@@ -12,6 +12,9 @@ export class SigninComponent implements OnInit {
 
   signInForm: FormGroup;
   errorMessage: string;
+  // isAuth$ = new BehaviorSubject<boolean>(false);
+  // authToken: string;
+  // userId: string;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -42,3 +45,19 @@ export class SigninComponent implements OnInit {
     );
   }
 }
+
+// onSubmit() {
+//   const email = this.signInForm.get('email').value;
+//   const password = this.signInForm.get('password').value;
+
+//   this.authService.signInUser(email, password).subscribe({
+//     next: (response: { userId: string, authToken: string }) => {
+//             this.userId = response.userId;
+//             this.authToken = response.authToken;
+//             this.isAuth$.next(true);
+//             this.router.navigate(['/posts']);
+
+//   }
+//   error: error => console.error (error)
+// })
+// }

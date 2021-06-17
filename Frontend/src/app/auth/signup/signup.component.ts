@@ -46,3 +46,8 @@ export class SignupComponent implements OnInit {
     );
   }
 }
+
+// this.authService.createNewUser(name, username, email, password).subscribe({
+//   next: res => console.log(res),
+//   error: error => console.error (error)
+// })

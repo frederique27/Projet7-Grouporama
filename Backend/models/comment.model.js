@@ -4,11 +4,13 @@ module.exports = (sequelize, Sequelize) => {
     class Comment extends Model {
         static associate(models) {
             models.Comment.belongsTo(models.User, {
+              foreignKey: 'userId',
                 foreignKey: {
                   allowNull: false,
                 },
               });
               models.Comment.belongsTo(models.Post, {
+                foreignKey: 'postId',
                 foreignKey: {
                   allowNull: false,
                 },
@@ -29,8 +31,21 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER(11).UNSIGNED,
          },
         textComment: {
-            type: Sequelize.STRING(255),
-            allowNull: true
+            type: Sequelize.TEXT,
+            allowNull: false,
+            validate: {
+              notNull: {
+                msg: 'Le contenu du post ne peut pas être vide',
+              },
+              notEmpty: {
+                msg: 'Le contenu du post ne peut pas être vide',
+              },
+              isValidLength(content) {
+                if (content.length > 200) {
+                  throw new Error('Le contenu du post peut contenir au maximum 200 caractères');
+                }
+              },
+          }
         }
       }, {
         sequelize, 

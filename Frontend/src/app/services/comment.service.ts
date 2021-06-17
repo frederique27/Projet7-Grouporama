@@ -10,10 +10,8 @@ export class CommentService {
   constructor(private testHttp: TestHttp) {}
 
 
-  newComment(textComment: string) {
-    const formData: FormData = new FormData()
-    formData.append("textPost", textComment)
-    return this.testHttp.newComment(formData)
+  newComment(textComment, postId) {
+    return this.testHttp.newComment(textComment, postId)
   }
 
 }

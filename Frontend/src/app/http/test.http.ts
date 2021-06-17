@@ -7,10 +7,20 @@ import { Post } from "../groupomania/models/Posts.model";
 @Injectable ({ providedIn: 'root'})
 
 export class TestHttp extends InterfaceHttp {
-    // posts$ = new Subject<Post[]>();
+    //AUTH//
+    // signUp({name: name, username: username, email: email, password: password}){
+    //     return this.httpClient.post(`${this.url}auth/signup`, {name: name, username: username, email: email, password: password})
+    // }
+    // signIn({email: email, password: password}){
+    //     return this.httpClient.post(`${this.url}auth/signin`, {email: email, password: password})
+    // }
+
+    //POSTS//
     getPost(): Observable<any>{
-    // getPost(){
         return this.httpClient.get(`${this.url}posts`)
+    }
+    getOnePost(id): Observable<any>{
+        return this.httpClient.get(`${this.url}posts/`+id)
     }
     createPost(formData: FormData){
         return this.httpClient.post(`${this.url}posts/new`, formData)
@@ -20,13 +30,12 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.delete(`${this.url}posts/`+id)
     }
 
-    likePost(publicationLike){
-        // return this.httpClient.post(`${this.url}posts/like`, id, likes)
+    likePost(publicationLike): Observable<any>{
         return this.httpClient.post(`${this.url}posts/like`, publicationLike)
     }
 
-    newComment(formdata: FormData){
-        return this.httpClient.post(`${this.url}posts/comment`, formdata)
+    newComment(textComment: string, postId){
+        return this.httpClient.post(`${this.url}posts/comment`, {textComment: textComment, postId: postId})
     }
 
 } 

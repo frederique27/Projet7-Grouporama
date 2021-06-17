@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TestHttp } from '../http/test.http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -12,6 +13,7 @@ export class AuthService {
   userId: string;
 
   constructor(private http: HttpClient,
+              private testHttp: TestHttp,
               private router: Router) { }
 
   createNewUser(name: string, username: string, email: string, password: string) {
@@ -27,6 +29,7 @@ export class AuthService {
           }
         );
       });
+    // return this.testHttp.signUp({name: name, username: username, email: email, password: password})
   }
 
   getToken() {
@@ -51,6 +54,7 @@ export class AuthService {
         }
       );
     });
+    // return this.testHttp.signIn({email: email, password: password})
   }
 
   signOutUser() {

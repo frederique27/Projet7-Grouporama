@@ -5,17 +5,19 @@ module.exports = (sequelize, Sequelize) => {
       class Post extends Model {
         static associate(models) {
           models.Post.belongsTo(models.User, {
-            // foreignKey: 'userId',
-            // onDelete: 'CASCADE',
-            // foreignKey: {
-            //   allowNull: false
-            // }
+            foreignKey: 'userId',
+            onDelete: 'CASCADE',
+            foreignKey: {
+              allowNull: false
+            }
           });
+          models.Post.hasMany(models.Comment)
+          models.Post.hasMany(models.Like)
         }
-      };
+      }
       Post.init ({
           id: {
-            type: Sequelize.INTEGER(11).UNSIGNED,
+            type: Sequelize.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true

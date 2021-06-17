@@ -5,10 +5,11 @@ module.exports = (sequelize, Sequelize) => {
     // const User = sequelize.define('User', {
     class User extends Model {
       static associate(models) {
-        models.User.hasMany(models.Post,
-          {onDelete: 'cascade' });
+        models.User.hasMany(models.Post, {onDelete: 'cascade' });
+        models.User.hasMany(models.Like, {onDelete: 'cascade' });
+        models.User.hasMany(models.Comment, {onDelete: 'cascade' });
         }
-      };
+      }
       User.init ({
     id: {
       // allowNull: false,

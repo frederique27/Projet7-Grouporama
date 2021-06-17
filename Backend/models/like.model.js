@@ -4,11 +4,14 @@ module.exports = (sequelize, Sequelize) => {
   class Like extends Model {
     static associate(models) {
       models.Like.belongsTo(models.User, {
+        foreignKey: 'userId',
         foreignKey: {
           allowNull: false,
         },
       });
       models.Like.belongsTo(models.Post, {
+        foreignKey: 'postId',
+        onDelete: 'CASCADE',
         foreignKey: {
           allowNull: false,
         },

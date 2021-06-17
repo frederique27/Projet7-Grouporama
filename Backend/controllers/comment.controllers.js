@@ -11,21 +11,16 @@ function getUserIdFromRequest(req) {
   }
 
 exports.createComment = (req, res, next) => {
-    const commentObject = JSON.parse(req.body.comment);
-    // const isValid = await commentSchema.validateAsync(commentObject);
-    const user = getUserIdFromRequest(req);
-    // const profile = await db.user.findByPk(user);
+  let newPost = {}; 
+  newPost = { userId: getUserIdFromRequest(req), textComment: req.body.textComment, postId: req.body.postId }
+  const user = getUserIdFromRequest(req);
+  // const profile = await db.user.findByPk(user);
 
-    if (!commentObject) { return res.status(404).json('invalid req object'); }
-    if (!user) { return res.status(404).json('user not found'); }
+  if (!user) { return res.status(404).json('user not found'); }
 
-    dbComment.create({
-        textComment: commentObject.body,
-        userId: user,
-        postId: req.body.id_publication,
-    })
-        .then(() => res.status(201).json({ message: `comment registred` }))
-        .catch(() => res.status(404).json("publication not found"));
+  dbComment.create(newPost)
+      .then(() => res.status(201).json({ message: `comment registered` }))
+      .catch(() => res.status(404).json("publication not found"));
 }
 
 exports.modifyComment = (req, res, next) => {

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TestHttp } from '../http/test.http';
-import { Observable, of } from 'rxjs';
-
 @Injectable()
 export class PostsService {
   
@@ -10,7 +8,10 @@ export class PostsService {
   getPosts() {
     return this.testHttp.getPost()
   }
-
+ 
+  getPostById(id: string) {
+    return this.testHttp.getOnePost(id)
+  }
 
   createNewPost(textPost: string, photo: File, userId: string) {
     const formData: FormData = new FormData()

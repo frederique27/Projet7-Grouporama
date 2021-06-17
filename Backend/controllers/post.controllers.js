@@ -1,24 +1,34 @@
 const db = require('../config/db.config.js');
 const dbPost = db.post;
+const dbUser = db.user;
+const dbComment = db.comment;
+const dbLike = db.like;
 const fs = require('fs');
 
 function getUserIdFromRequest(req) {
     return req.headers.authorization.split(' ')[2];
 }
 
-//routes GET
+// routes GET
 exports.getAllPosts = (req, res, next) => {
-    dbPost.findAll({order: [ 
+    dbPost.findAll({
+        order: [ 
         ['createdAt', 'DESC']
     ],
     })
       .then(post => {
-        //   console.log(post);
           res.status(200).json(post); 
       })
       .catch(error => res.status(402).json({ error }));
-    };
+};
 
+exports.getOnePost = (req, res, next) => {
+    const postId = req.params.id;
+    dbPost.findOne({ 
+        where: { id: postId }
+    }).then(post => res.status(200).json(post))
+	  .catch(error => res.status(500).json({ error }));
+};
 
 //routes POST
 exports.createPost = (req, res, next) => {
@@ -45,10 +55,11 @@ exports.deletePost = (req, res, next) => {
             fs.unlink(`images/${filename}`, (err) => {
                 if (err) throw err;
             })
+        }
             dbPost.destroy({ where: { id: postId } }) //ensuite supprime de la base de donnée
 			.then(() => res.status(200).json({ message: 'Post supprimé !' }))
 			.catch(error => res.status(403).json({ error }));
-        }
+        // }
 		})
 	  .catch(error => res.status(500).json({ error }));
 };
