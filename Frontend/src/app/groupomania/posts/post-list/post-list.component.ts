@@ -9,6 +9,7 @@ import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
+import { User } from '../../models/Users.model';
 
 @Component({ 
   selector: 'app-post-list',
@@ -24,6 +25,7 @@ import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 
   posts: Post[];
   likes: Like[];
+  users: User[];
   userId: string;
 
   constructor(

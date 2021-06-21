@@ -8,11 +8,12 @@ import { Post } from "../groupomania/models/Posts.model";
 
 export class TestHttp extends InterfaceHttp {
     //AUTH//
-    // signUp({name: name, username: username, email: email, password: password}){
+    // signUp(name: string, username: string, email: string, password: string){
     //     return this.httpClient.post(`${this.url}auth/signup`, {name: name, username: username, email: email, password: password})
     // }
-    // signIn({email: email, password: password}){
-    //     return this.httpClient.post(`${this.url}auth/signin`, {email: email, password: password})
+    // signIn(email: string, password: string){
+    //     // return this.httpClient.post(`${this.url}auth/signin`, formData)
+    //     return this.httpClient.post(`${this.url}auth/signin`, {email: email, password: password, withCredentials: true})
     // }
 
     //POSTS//

@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { User } from 'src/app/groupomania/models/Users.model';
 
 @Component({
   selector: 'app-one-post',
@@ -25,6 +26,7 @@ export class OnePostComponent implements OnInit {
 
   post: Post[] = [];
   likes: Like[];
+  user: User[];
   userId: string;
   id: string
   commentForm: FormGroup;

@@ -10,11 +10,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HeaderComponent } from './groupomania/header/header.component'; 
 import { LikeService } from './services/like.service';
 import { CommentService } from './services/comment.service';
+import { ProfileModule } from './groupomania/profile/profile.module';
 
 
 const appRoutes: Routes = [ 
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   { path: 'posts', loadChildren: () => import('./groupomania/posts/posts.module').then(m => m.PostsModule)},
+  { path: 'profile', loadChildren: () => import('./groupomania/profile/profile.module').then(m => m.ProfileModule)},
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
   { path: '**', redirectTo: 'posts' }
 ]; 
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
     AuthModule,
     PostsModule,
     BrowserModule,
+    ProfileModule
   ],
   providers: [
     AuthService,

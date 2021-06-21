@@ -16,7 +16,9 @@
             *ngIf="isAuth">Nouvelle publication</a>
           </li>
           <li routerLinkActive="active">
-            <a class="nav-link" *ngIf="isAuth">Profil</a>
+            <a class="nav-link" (click)="profile()"
+            style="cursor:pointer"
+            *ngIf="isAuth">Profil</a>
           </li>
           <li>
             <a class="nav-link"

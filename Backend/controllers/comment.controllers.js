@@ -18,7 +18,7 @@ exports.createComment = (req, res, next) => {
 
   if (!user) { return res.status(404).json('user not found'); }
 
-  dbComment.create(newPost)
+  dbComment.create(newPost) 
       .then(() => res.status(201).json({ message: `comment registered` }))
       .catch(() => res.status(404).json("publication not found"));
 }

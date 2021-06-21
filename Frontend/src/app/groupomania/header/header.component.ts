@@ -33,4 +33,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/posts', 'new']);
   }
 
+  profile() {
+    this.router.navigate(['/profile']);
+  }
+
 }

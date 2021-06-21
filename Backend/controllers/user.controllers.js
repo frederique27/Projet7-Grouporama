@@ -26,7 +26,7 @@ exports.signup = (req, res, next) => {
 exports.signin = (req, res, next) => {
     console.log("Sign-In");
 	
-	User.findOne({
+	User.findOne({ 
 		where: {
 			email: req.body.email
 		}
@@ -41,7 +41,7 @@ exports.signin = (req, res, next) => {
 		}
 		
 		let token = jwt.sign
-		({ userId: user.id }, 
+		({ userId: user.id },  
 			JWTOKEN,
 		{ expiresIn: 86400 });
 		res.setHeader('Authorization', 'Bearer ' + token);

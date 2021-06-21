@@ -10,6 +10,7 @@ require('dotenv').config();
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const likeCommentRoutes = require('./routes/likeComment.routes')
+const profileRoutes = require('./routes/likeComment.routes')
 
 const db = require('./config/db.config');
 
@@ -47,5 +48,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/posts', likeCommentRoutes);
+app.use('/api/profile', profileRoutes);
 
 module.exports = app; 
