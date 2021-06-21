@@ -6,11 +6,11 @@ import { AuthGuardService } from "../../guards/auth-guard";
 import { OnePostComponent } from "./one-post/one-post/one-post.component";
 
 const routes: Routes = [
-    { path: 'posts', canActivate: [AuthGuardService], component: PostListComponent },
-    { path: 'posts/new', canActivate: [AuthGuardService], component: PostFormComponent },
-    { path: 'posts/like', canActivate: [AuthGuardService], component: PostListComponent },
-    { path: 'posts/comment', canActivate: [AuthGuardService], component: PostListComponent },
-    { path: 'posts/:id', canActivate: [AuthGuardService], component: OnePostComponent },
+    { path: '', canActivate: [AuthGuardService], component: PostListComponent },
+    { path: 'new', canActivate: [AuthGuardService], component: PostFormComponent },
+    { path: 'like', canActivate: [AuthGuardService], component: PostListComponent },
+    { path: 'comment', canActivate: [AuthGuardService], component: PostListComponent },
+    { path: ':id', canActivate: [AuthGuardService], component: OnePostComponent },
 ];
 
 @NgModule({
