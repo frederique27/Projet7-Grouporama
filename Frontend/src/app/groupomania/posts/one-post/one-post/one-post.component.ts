@@ -26,10 +26,10 @@ export class OnePostComponent implements OnInit {
 
   post: Post[] = [];
   likes: Like[];
-  user: User[];
   userId: string;
   id: string
   commentForm: FormGroup;
+  user: User;
 
 
   constructor(
@@ -40,7 +40,9 @@ export class OnePostComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {
+    this.user = this.authService.userValue;
+   }
 
   ngOnInit() {
   this.getOnePost();

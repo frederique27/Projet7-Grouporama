@@ -17,3 +17,83 @@ nav img {
     width: 180px;
     margin-top: 5px;
 }
+
+fa-icon {
+    font-size: 18px;
+    padding: 6px;
+    color: black;
+}
+
+.dropdown-menu {
+    min-width: auto;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 4px 16px;
+    margin-left: 0;
+    cursor: pointer;
+}
+
+ul {
+    margin-right: 25px;
+}
+
+ngb-toast {
+    position: absolute;
+    right: -50px;
+    border: 1px solid gray;
+    background: white;
+    margin-top: 10px;
+    width: 250px;
+    top: 40px;
+    padding: 5px;
+    border-radius: 5px;
+}
+ul{
+    position: relative;
+}
+.notifications-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    cursor: pointer
+}
+
+.notifications-item:hover {
+    background-color: #eee
+}
+
+.notifications-item img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin-right: 9px;
+    border-radius: 50%;
+    margin-top: 2px
+}
+
+.notifications-item .text p {
+    color: #777;;
+    font-size: 12px;
+    margin: 0;
+}
+
+.notifBorder{
+    margin: 0;
+    position: absolute;
+    top: -12px;
+    left: 116px;
+    color: gray;
+}
+
+#faCircle {
+    color: red;
+    font-size: 8px;
+    position: absolute;
+    top: 6px;
+    right: -4px;
+}
+.notif {
+    cursor: pointer;
+    position: relative;
+}

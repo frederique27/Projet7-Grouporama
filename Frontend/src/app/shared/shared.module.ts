@@ -12,8 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        CommonModule
-
+        CommonModule,    
+        FontAwesomeModule
     ],
     exports: [
         FormsModule,

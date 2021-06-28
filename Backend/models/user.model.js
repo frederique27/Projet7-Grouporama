@@ -33,7 +33,8 @@ module.exports = (sequelize, Sequelize) => {
     password: {
       type: Sequelize.STRING,
       allowNull: false
-    }
+    },
+    profilePic: { type: Sequelize.STRING },
   }, {
     sequelize,
     modelName: 'User',

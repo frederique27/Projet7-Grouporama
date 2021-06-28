@@ -39,4 +39,9 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.post(`${this.url}posts/comment`, {textComment: textComment, postId: postId})
     }
 
+    //PROFILE//
+    getProfile():Observable<any>{
+        return this.httpClient.get(`${this.url}profile`)
+    }
+
 } 

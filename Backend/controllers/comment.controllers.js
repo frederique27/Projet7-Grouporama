@@ -11,7 +11,7 @@ function getUserIdFromRequest(req) {
   }
 
 exports.createComment = (req, res, next) => {
-  let newPost = {}; 
+  let newPost = {};   
   newPost = { userId: getUserIdFromRequest(req), textComment: req.body.textComment, postId: req.body.postId }
   const user = getUserIdFromRequest(req);
   // const profile = await db.user.findByPk(user);

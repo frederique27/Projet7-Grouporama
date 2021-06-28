@@ -25,18 +25,21 @@ import { User } from '../../models/Users.model';
 
   posts: Post[];
   likes: Like[];
-  users: User[];
   userId: string;
+  user: User;
 
   constructor(
     private postsService: PostsService, 
     private authService : AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.user = this.authService.userValue;
+  }
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.getPosts();
+    console.log(this.user);
   }
 
   getPosts(){

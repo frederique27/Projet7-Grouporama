@@ -11,15 +11,24 @@ import { HeaderComponent } from './groupomania/header/header.component';
 import { LikeService } from './services/like.service';
 import { CommentService } from './services/comment.service';
 import { ProfileModule } from './groupomania/profile/profile.module';
+import { ProfileService } from './services/profile.service';
 
 
 const appRoutes: Routes = [ 
+<<<<<<< HEAD
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
+=======
+    { path: '', redirectTo: 'posts', pathMatch: 'full' },
+>>>>>>> 8503a98... profile
 
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   { path: 'posts', loadChildren: () => import('./groupomania/posts/posts.module').then(m => m.PostsModule)},
   { path: 'profile', loadChildren: () => import('./groupomania/profile/profile.module').then(m => m.ProfileModule)},
+<<<<<<< HEAD
   // { path: '**', redirectTo: 'posts' }
+=======
+  { path: '**', redirectTo: 'posts' }
+>>>>>>> 8503a98... profile
 ]; 
 
 @NgModule({
@@ -39,7 +48,8 @@ const appRoutes: Routes = [
     AuthService,
     PostsService,
     LikeService,
-    CommentService
+    CommentService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

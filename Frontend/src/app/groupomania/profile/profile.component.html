@@ -1,1 +1,54 @@
-<p>profile works!</p>
+<!-- <div class="container emp-profile" *ngIf="profile"> -->
+<div class="container emp-profile"  *ngIf="user">
+            <form method="post">
+                <div class="row">
+                    <h5>{{user.name | titlecase}}</h5>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="../../../assets/noprofilepic.jpg" alt=""/>
+                            <div class="file btn btn-lg btn-primary">
+                                Changer ma photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">   
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Username</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{user.username | titlecase}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{user.email}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Description</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Ajouter une description">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <!-- <div class="col-md-6"> -->
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Supprimer mon compte"/>
+                    <!-- </div> -->
+                </div>
+            </form>           
+        </div>

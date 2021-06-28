@@ -4,7 +4,7 @@ import { TestHttp } from '../http/test.http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../groupomania/models/Users.model';
-// import { map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +14,50 @@ export class AuthService {
   authToken: string;
   userId: string;
   user: User[]
-  // private userSubject: BehaviorSubject<User>;
-  // public user: Observable<User>;
+  private userSubject: BehaviorSubject<User>;
+  public users: Observable<User>;
+
 
   constructor(private http: HttpClient,
               private testHttp: TestHttp,
               private router: Router) { 
-                // this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-                // this.user = this.userSubject.asObservable();
+                this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+                this.users = this.userSubject.asObservable();
               }
 
-  createNewUser(user) {
+
+public get userValue(): User {
+  return this.userSubject.value;
+}
+
+ signInUser(user) {
+    return new Promise((resolve, reject) => {
+      return this.http.post<any>('http://localhost:3000/api/auth/signin', user).subscribe(
+        (response: { userId: string, authToken: string }) => {
+          this.userId = response.userId;
+          this.authToken = response.authToken;
+          this.isAuth$.next(true);
+          // this.user = user;
+          // this.userSubject.next(user);
+          localStorage.setItem('token', this.authToken);
+          resolve(response);
+          return user;
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+    createNewUser(user) {
     return new Promise(
       (resolve, reject) => { 
         this.http.post('http://localhost:3000/api/auth/signup', user).subscribe(
           (response) => {
+            this.userSubject.next(user);
+            this.user = user;
+            localStorage.setItem('user', JSON.stringify(user));
             resolve(response);
           },
           (error) => {
@@ -39,25 +68,41 @@ export class AuthService {
     // return this.testHttp.signUp({name: name, username: username, email: email, password: password})
   }
 
-  signInUser(user) {
-    return new Promise((resolve, reject) => {
-      this.http.post('http://localhost:3000/api/auth/signin', user).subscribe(
-        (response: { userId: string, authToken: string }) => {
-          this.userId = response.userId;
-          this.authToken = response.authToken;
-          this.isAuth$.next(true);
-          this.user = user;
-          localStorage.setItem('token', this.authToken);
-          localStorage.setItem('user', JSON.stringify(user));
-          resolve(response);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
-    // return this.testHttp.signIn({email: email, password: password})
-  }
+
+  // createNewUser(user) {
+  //   return new Promise(
+  //     (resolve, reject) => { 
+  //       this.http.post('http://localhost:3000/api/auth/signup', user).subscribe(
+  //         (response) => {
+  //           resolve(response);
+  //         },
+  //         (error) => {
+  //           reject(error);
+  //         }
+  //       );
+  //     });
+  //   // return this.testHttp.signUp({name: name, username: username, email: email, password: password})
+  // }
+
+  // signInUser(user) {
+  //   return new Promise((resolve, reject) => {
+  //     this.http.post('http://localhost:3000/api/auth/signin', user).subscribe(
+  //       (response: { userId: string, authToken: string }) => {
+  //         this.userId = response.userId;
+  //         this.authToken = response.authToken;
+  //         this.isAuth$.next(true);
+  //         this.user = user;
+  //         localStorage.setItem('token', this.authToken);
+  //         localStorage.setItem('user', JSON.stringify(user));
+  //         resolve(response);
+  //       },
+  //       (error) => {
+  //         reject(error);
+  //       }
+  //     );
+  //   });
+  //   // return this.testHttp.signIn({email: email, password: password})
+  // }
 
   signOutUser() {
       this.authToken = null;
@@ -77,6 +122,10 @@ export class AuthService {
     return this.userId;
   }
 }
+
+
+
+
 
   // createNewUser(name, username, email, password) {
   //   return this.testHttp.signUp(name, username, email, password)
