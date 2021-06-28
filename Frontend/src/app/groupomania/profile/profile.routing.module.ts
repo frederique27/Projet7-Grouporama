@@ -4,8 +4,8 @@ import { AuthGuardService } from "../../guards/auth-guard";
 import { ProfileComponent } from "./profile.component";
 
 const routes: Routes = [
-    { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },
-    { path: 'profile/users', canActivate: [AuthGuardService], component: ProfileComponent },
+    { path: '', canActivate: [AuthGuardService], component: ProfileComponent },
+    { path: 'users', canActivate: [AuthGuardService], component: ProfileComponent },
 ];
 
 @NgModule({
