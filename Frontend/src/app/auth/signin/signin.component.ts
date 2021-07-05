@@ -107,7 +107,8 @@ export class SigninComponent implements OnInit {
     
     this.authService.signInUser(user).then(
       () => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/posts']);
+        console.log('ok');
         // this.authService.storeUserData(data.token, data.user);
       },
       (error) => {

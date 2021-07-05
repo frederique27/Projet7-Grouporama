@@ -9,4 +9,11 @@ export class ProfileService {
     return this.testHttp.getProfile()
   }
 
+  editPhoto(profilePic: File) {
+    const formData: FormData = new FormData()
+    formData.append("profilePic", profilePic)
+    return this.testHttp.editPhoto(formData)
+
+  }
+
 }

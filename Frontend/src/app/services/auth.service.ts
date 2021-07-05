@@ -32,7 +32,7 @@ public get userValue(): User {
 
  signInUser(user) {
     return new Promise((resolve, reject) => {
-      return this.http.post<any>('http://localhost:3000/api/auth/signin', user).subscribe(
+      return this.http.post<any>('http://localhost:4200/api/auth/signin', user).subscribe(
         (response: { userId: string, authToken: string }) => {
           this.userId = response.userId;
           this.authToken = response.authToken;
@@ -108,10 +108,10 @@ public get userValue(): User {
       this.authToken = null;
       this.userId = null;
       this.isAuth$.next(false);
-      this.router.navigate(['signin']);
+      this.router.navigate(['/auth/signin']);
       console.log('user signed out');
-      this.user = null;
-      localStorage.clear();
+      // this.user = null;
+      // localStorage.clear();
   }
 
   getToken() {

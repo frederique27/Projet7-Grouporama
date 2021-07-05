@@ -43,5 +43,8 @@ export class TestHttp extends InterfaceHttp {
     getProfile():Observable<any>{
         return this.httpClient.get(`${this.url}profile`)
     }
+    editPhoto(formData: FormData){
+        return this.httpClient.put(`${this.url}profile`, formData)
+    }
 
 } 

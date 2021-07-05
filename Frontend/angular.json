@@ -78,6 +78,9 @@
           "configurations": {
             "production": {
               "browserTarget": "Frontend:build:production"
+            },
+            "local": {
+              "proxyConfig": "proxy/proxy.local.json"
             }
           }
         },

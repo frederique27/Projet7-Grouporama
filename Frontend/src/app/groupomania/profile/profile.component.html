@@ -7,13 +7,19 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src="../../../assets/noprofilepic.jpg" alt=""/>
+                        <label class="profile-img" for="profilePicture">
+                            <img [src]="profilePic ? profilePic : '../../../assets/noprofilepic.jpg'"/>
                             <div class="file btn btn-lg btn-primary">
+                                <p (click)="profilePicture.click()" 
+                                style="cursor: pointer">
                                 Changer ma photo
-                                <input type="file" name="file"/>
+                                </p>
                             </div>
-                        </div>
+                        </label>
+                        <input #profilePicture
+                                style="display: none" 
+                                type="file" (change)="detectFiles($event.target.files)" 
+                                name="file"/>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">   
@@ -33,14 +39,14 @@
                                     <p>{{user.email}}</p>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-6">
                                     <label>Description</label>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" placeholder="Ajouter une description">
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
