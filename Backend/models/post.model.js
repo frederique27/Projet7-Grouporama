@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
     // const Post = sequelize.define('posts', {
       class Post extends Model {
         static associate(models) {
-          models.Post.belongsTo(models.User, {
+          models.Post.hasOne(models.User, {
             foreignKey: 'userId',
             onDelete: 'CASCADE',
             foreignKey: {

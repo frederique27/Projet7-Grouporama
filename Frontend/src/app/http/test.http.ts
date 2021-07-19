@@ -31,20 +31,29 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.delete(`${this.url}posts/`+id)
     }
 
-    likePost(publicationLike): Observable<any>{
-        return this.httpClient.post(`${this.url}posts/like`, publicationLike)
+    likePost(publicationLike, id): Observable<any>{
+        return this.httpClient.post(`${this.url}posts/${id}/like`, publicationLike)
+    }
+    getLikes(id): Observable<any>{
+        return this.httpClient.get(`${this.url}posts/${id}/like`, id)
     }
 
-    newComment(textComment: string, postId){
-        return this.httpClient.post(`${this.url}posts/comment`, {textComment: textComment, postId: postId})
+    newComment(textComment: string, id):Observable<any>{
+        return this.httpClient.post(`${this.url}posts/${id}/comment`, {textComment: textComment, postId: id})
+    }
+    getComments(id):Observable<any>{
+        return this.httpClient.get(`${this.url}posts/${id}/comment`)
     }
 
     //PROFILE//
     getProfile():Observable<any>{
         return this.httpClient.get(`${this.url}profile`)
     }
-    editPhoto(formData: FormData){
+    editPhoto(formData: FormData):Observable<any>{
         return this.httpClient.put(`${this.url}profile`, formData)
+    }
+    deleteUser():Observable<any>{
+        return this.httpClient.delete(`${this.url}profile`)
     }
 
 } 

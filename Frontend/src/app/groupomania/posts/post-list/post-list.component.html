@@ -4,7 +4,7 @@
             <div class="card" *ngFor="let post of posts; let index = index">
                 <div class="d-flex justify-content-between p-2 px-2" (click)="getOnePost(post)">
                     <div class="d-flex flex-row align-items-center userInfo"> 
-                        <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle profilePic">
+                        <img [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="50" class="rounded-circle profilePic">
                         <div class="d-flex flex-column ml-2"> 
                             <span class="font-weight-bold">{{user.username | titlecase}}</span> 
                             <small class="mr-2">Publié le {{post.createdAt | date: 'dd/MM/yyyy'}}</small> 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../../../services/posts.service';
 import { Post } from '../../../models/Posts.model';
 import { Like } from '../../../models/Likes.model';
+import { Comment } from '../../../models/Comments.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { LikeService } from 'src/app/services/like.service';
@@ -25,9 +26,11 @@ export class OnePostComponent implements OnInit {
   faTrash = faTrashAlt;
 
   post: Post[] = [];
-  likes: Like[];
+  comments: Comment[];
+  likes: Like[] = [];
   userId: string;
-  id: string
+  id: string;
+  postId: string;
   commentForm: FormGroup;
   user: User;
 
@@ -45,18 +48,20 @@ export class OnePostComponent implements OnInit {
    }
 
   ngOnInit() {
-  this.getOnePost();
-  this.initForm();
+    this.getOnePost();
+    this.getLikes();
+    this.initForm();
+    this.getComments();
+    this.postId = this.route.snapshot.paramMap.get('id');
   }
 
   getOnePost() {
     this.route.params.forEach((params) => {
         this.postsService.getPostById(params.id)
-      .subscribe({
-          next: post => this.post = post,
-          error: error => console.error (error)
+      .subscribe((post)=>{
+        this.post = post
+        this.getLikes();
         })
-
     })
   }
 
@@ -67,27 +72,39 @@ export class OnePostComponent implements OnInit {
   }  
 
   // LIKES DISLIKES //
-  likeDislike(publicationLike) {
-    this.likeService.likePost(publicationLike)
-      .subscribe(() => {
-        this.getOnePost();
-      });
-  }
+  // likeDislike(publicationLike) {
+  //   this.likeService.likePost(publicationLike)
+  //     .subscribe(() => {
+  //       this.getOnePost();
+  //     });
+  // }
 
   onLikePost(post) {
     const publicationLike = {
       postId: post.id,
-      likes: 1
+      likes: 1,
+      userId: this.authService.getUserId()
     };
-    this.likeDislike(publicationLike)
+    
+    // this.likeDislike(publicationLike)
+    this.likeService.likePost(publicationLike, this.postId)
+      .subscribe(() => {
+        this.getLikes();
+      });
   }
 
-  onDislikePost(post) {
-    const publicationLike = {
-      postId: post.id,
-      likes: -1
-    };
-    this.likeDislike(publicationLike)
+  // onDislikePost(post) {
+  //   const publicationLike = {
+  //     postId: post.id,
+  //     likes: -1,
+  //   };
+  //   this.likeDislike(publicationLike)
+  // }
+  getLikes() {
+    this.likeService.getLikes(this.postId).subscribe({
+      next: like => this.likes = like,
+      error: error => console.error (error)
+    })
   }
 
   // COMMENTS //
@@ -101,9 +118,20 @@ export class OnePostComponent implements OnInit {
     if (event.keyCode === 13) {
       const textComment = this.commentForm.get('textComment').value; 
       this.commentService.newComment(textComment, post.id).subscribe({  
-        next: response => console.log(response),
+        next: res => this.getComments(),
         error: error => console.error (error)
       })
     }
   }
+
+  getComments(){
+    this.route.params.forEach((params) => {
+      this.commentService.getComments(params.id)
+    .subscribe((comment)=>{
+      this.comments = comment
+      this.getOnePost()
+      }) 
+    })
+  }
+
 }

@@ -56,7 +56,7 @@ public get userValue(): User {
         this.http.post('http://localhost:3000/api/auth/signup', user).subscribe(
           (response) => {
             this.userSubject.next(user);
-            this.user = user;
+            // this.user = user;
             localStorage.setItem('user', JSON.stringify(user));
             resolve(response);
           },
@@ -111,7 +111,7 @@ public get userValue(): User {
       this.router.navigate(['/auth/signin']);
       console.log('user signed out');
       // this.user = null;
-      // localStorage.clear();
+      localStorage.clear();
   }
 
   getToken() {

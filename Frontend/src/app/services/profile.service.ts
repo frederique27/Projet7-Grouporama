@@ -11,9 +11,13 @@ export class ProfileService {
 
   editPhoto(profilePic: File) {
     const formData: FormData = new FormData()
-    formData.append("profilePic", profilePic)
+    formData.append("image", profilePic)
     return this.testHttp.editPhoto(formData)
 
+  }
+
+  deleteUser(){
+    return this.testHttp.deleteUser()
   }
 
 }

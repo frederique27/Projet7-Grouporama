@@ -30,7 +30,8 @@ export class SignupComponent implements OnInit {
       name: ['', [Validators.required]],
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      profilePic: ['']
     });
   }
 
@@ -40,6 +41,7 @@ export class SignupComponent implements OnInit {
       username: this.signupForm.get('username').value,
       email: this.signupForm.get('email').value,
       password: this.signupForm.get('password').value,
+      profilePic: this.signupForm.get('profilePic').value
     }
     // const name = this.signupForm.get('name').value;
     // const username = this.signupForm.get('username').value;

@@ -8,18 +8,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label class="profile-img" for="profilePicture">
-                            <img [src]="profilePic ? profilePic : '../../../assets/noprofilepic.jpg'"/>
+                            <img [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'"/>
                             <div class="file btn btn-lg btn-primary">
-                                <p (click)="profilePicture.click()" 
-                                style="cursor: pointer">
-                                Changer ma photo
-                                </p>
+                                <p id="profileP" (click)="profilePicture.click()">Changer ma photo</p>
                             </div>
                         </label>
                         <input #profilePicture
                                 style="display: none" 
                                 type="file" (change)="detectFiles($event.target.files)" 
-                                name="file"/>
+                               />
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">   
@@ -53,7 +50,10 @@
                 <hr>
                 <div class="row">
                     <!-- <div class="col-md-6"> -->
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Supprimer mon compte"/>
+                        <input 
+                        type="submit" class="profile-edit-btn" name="btnAddMore" 
+                        value="Supprimer mon compte"
+                        (click)="deleteUser(user)"/>
                     <!-- </div> -->
                 </div>
             </form>           

@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="d-flex justify-content-between p-2 px-2">
                     <div class="d-flex flex-row align-items-center userInfo"> 
-                        <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle profilePic">
+                        <img [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="50" class="rounded-circle profilePic">
                         <div class="d-flex flex-column ml-2"> 
                             <span class="font-weight-bold">{{user.username | titlecase}}</span> 
                             <small class="mr-2">Publié le {{post.createdAt | date: 'dd/MM/yyyy'}}</small> 
@@ -22,10 +22,11 @@
                     <p class="text-justify" [innerHtml]="post.textPost | dompurify"></p>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex flex-row icons d-flex align-items-center">
+                        <div class="d-flex flex-row icons d-flex align-items-center" *ngIf="likes">
                             <a [disabled]="post.likes === -1"
                                 (click)="onLikePost(post);$event.preventDefault()">
-                                <fa-icon class="iconThumbs" [icon]="faThumbsUp" [ngClass]="{'onLike': post.likes === 1}"></fa-icon>
+                                <p>{{likes.length}}</p>
+                                <fa-icon class="iconThumbs" [icon]="faThumbsUp" [ngClass]="{'onLike': likes.length === 5}"></fa-icon>
                             </a>
                             <a [disabled]="post.likes === 1"
                                 (click)="onDislikePost(post);$event.preventDefault()">
@@ -39,11 +40,11 @@
                             <input type="text" class="form-control" formControlName="textComment" placeholder="Exprimez-vous">
                         </div>
                     </form>
-                    <div class="comments">
-                        <div class="d-flex flex-row mb-2"> <img src="https://i.imgur.com/9AZ2QX1.jpg" width="40" class="rounded-image profilePic">
+                    <div class="comments" *ngFor="let comment of comments; let index = index">
+                        <div class="d-flex flex-row mb-2"> <img [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="40" class="rounded-image profilePic">
                             <div class="d-flex flex-column ml-2"> 
-                                <span class="name">username</span> 
-                                <small class="comment-text">comments:</small>
+                                <span class="name">{{user.username | titlecase}} <small>  Publié le {{comment.createdAt | date: 'dd/MM/yyyy'}}</small></span> 
+                                <small class="comment-text">{{comment.textComment}}</small>
                             </div>
                         </div>
                     </div>

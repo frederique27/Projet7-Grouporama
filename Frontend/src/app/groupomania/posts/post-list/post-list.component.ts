@@ -4,12 +4,14 @@ import { Post } from '../../models/Posts.model';
 import { Like } from '../../models/Likes.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { ProfileService } from '../../../services/profile.service';
 //FONTAWESOME ICONS//
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { User } from '../../models/Users.model';
+import { OnePostComponent } from '../one-post/one-post/one-post.component';
 
 @Component({ 
   selector: 'app-post-list',
@@ -24,6 +26,7 @@ import { User } from '../../models/Users.model';
   faCommentAlt = faCommentAlt;
 
   posts: Post[];
+  comments: Comment[];
   likes: Like[];
   userId: string;
   user: User;
@@ -31,21 +34,27 @@ import { User } from '../../models/Users.model';
   constructor(
     private postsService: PostsService, 
     private authService : AuthService,
-    private router: Router
+    private profileService : ProfileService,
+    private router: Router,
+    // private onePostComponent: OnePostComponent
   ) {
     this.user = this.authService.userValue;
+    // this.user = this.profileService.getProfile;
   }
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.getPosts();
+    // this.onePostComponent.getLikes()
     console.log(this.user);
   }
 
   getPosts(){
-    this.postsService.getPosts().subscribe({
-      next: posts => this.posts = posts,
-      error: error => console.error (error)
+    this.postsService.getPosts().subscribe((posts)=>{
+      this.posts = posts
+      // this.onePostComponent.getLikes()
+      // next: posts => this.posts = posts,
+      // error: error => console.error (error)
     })
   }
 

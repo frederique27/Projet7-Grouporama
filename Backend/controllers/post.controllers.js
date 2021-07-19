@@ -11,13 +11,45 @@ function getUserIdFromRequest(req) {
 
 // routes GET
 exports.getAllPosts = (req, res, next) => {
+    // const nbrComments = dbComment.count({
+        // where: {
+        //     postId: req.body.postId
+        //   }
+    // })
+    // dbComment.findAndCountAll(
+    //     {
+    //     include: [
+    //        { model: Profile, required: true}
+    //     ],
+    //     // limit: 3
+    //   }
+    //   )
+    //   .then(c => {
+    //     console.log("There are " + JSON.stringify(c) + " comments!")
+    //   })
+    // dbComment.count({ where: { postId: req.body.postId }
+    //   }).then(c => {
+    //     console.log("There are " + JSON.stringify(c) + " comments!")
+    //     // return res.status(200).json(c);
+    //   })
+    //   .catch(error => res.status(402).json({ error }));
+    // dbComment.findAll({ include: [ dbPost ] }).then(comments => {
+    // console.log(JSON.stringify(comments))
+    // })
     dbPost.findAll({
+        // include: [{
+        //     model: dbUser, required: true
+        //     // attributes: ['username']
+        // }],
         order: [ 
         ['createdAt', 'DESC']
     ],
     })
       .then(post => {
-          res.status(200).json(post); 
+        // console.log("COUCOUUUUUU" + json(nbrComments));
+          res.status(200).json(post);
+          
+        //   return res.json(nbrComments);
       })
       .catch(error => res.status(402).json({ error }));
 };
@@ -25,7 +57,7 @@ exports.getAllPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
     const postId = req.params.id;
     dbPost.findOne({ 
-        where: { id: postId }
+        where: { id: postId },
     }).then(post => res.status(200).json(post))
 	  .catch(error => res.status(500).json({ error }));
 };
@@ -34,7 +66,12 @@ exports.getOnePost = (req, res, next) => {
 exports.createPost = (req, res, next) => {
     let newPost = {}; let photo = '';
     if(req.file) { photo = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`; }
-    newPost = { userId: getUserIdFromRequest(req), textPost: req.body.textPost, photo: photo }
+    newPost = { 
+        userId: getUserIdFromRequest(req), 
+        textPost: req.body.textPost, 
+        photo: photo,
+        likes: 0
+     }
     
     dbPost.create(newPost)
         .then(() => {

@@ -9,8 +9,9 @@ require('dotenv').config();
 //Importation des routes
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
-const likeCommentRoutes = require('./routes/likeComment.routes')
-const profileRoutes = require('./routes/likeComment.routes')
+const likeCommentRoutes = require('./routes/likeComment.routes');
+const profileRoutes = require('./routes/profile.routes');
+const notifsRoutes = require('./routes/notifs.routes');
 
 const db = require('./config/db.config');
 
@@ -49,5 +50,6 @@ app.use('/api/auth', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/posts', likeCommentRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/posts', notifsRoutes);
 
 module.exports = app; 

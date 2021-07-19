@@ -10,8 +10,12 @@ export class LikeService {
   constructor(private testHttp: TestHttp) {}
 
 
-  likePost(publicationLike) {
-    return this.testHttp.likePost(publicationLike)
+  likePost(publicationLike, id) {
+    return this.testHttp.likePost(publicationLike, id)
+  }
+
+  getLikes(id) {
+    return this.testHttp.getLikes(id)
   }
 
 }

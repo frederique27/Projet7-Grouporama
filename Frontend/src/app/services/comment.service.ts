@@ -10,8 +10,12 @@ export class CommentService {
   constructor(private testHttp: TestHttp) {}
 
 
-  newComment(textComment, postId) {
-    return this.testHttp.newComment(textComment, postId)
+  newComment(textComment, id) {
+    return this.testHttp.newComment(textComment, id)
+  }
+
+  getComments(id: string){
+    return this.testHttp.getComments(id)
   }
 
 }

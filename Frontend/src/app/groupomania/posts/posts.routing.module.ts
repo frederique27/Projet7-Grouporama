@@ -8,8 +8,8 @@ import { OnePostComponent } from "./one-post/one-post/one-post.component";
 const routes: Routes = [
     { path: '', canActivate: [AuthGuardService], component: PostListComponent },
     { path: 'new', canActivate: [AuthGuardService], component: PostFormComponent },
-    { path: 'like', canActivate: [AuthGuardService], component: PostListComponent },
-    { path: 'comment', canActivate: [AuthGuardService], component: PostListComponent },
+    { path: ':id/like', canActivate: [AuthGuardService], component: OnePostComponent },
+    { path: ':id/comment', canActivate: [AuthGuardService], component: OnePostComponent },
     { path: ':id', canActivate: [AuthGuardService], component: OnePostComponent },
 ];
 
