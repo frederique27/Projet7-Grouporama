@@ -12,6 +12,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { User } from '../../models/Users.model';
 import { OnePostComponent } from '../one-post/one-post/one-post.component';
+import { LikeService } from 'src/app/services/like.service';
 
 @Component({ 
   selector: 'app-post-list',
@@ -34,7 +35,7 @@ import { OnePostComponent } from '../one-post/one-post/one-post.component';
   constructor(
     private postsService: PostsService, 
     private authService : AuthService,
-    private profileService : ProfileService,
+    private likeService : LikeService,
     private router: Router,
     // private onePostComponent: OnePostComponent
   ) {
@@ -45,7 +46,6 @@ import { OnePostComponent } from '../one-post/one-post/one-post.component';
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.getPosts();
-    // this.onePostComponent.getLikes()
     console.log(this.user);
   }
 
@@ -60,6 +60,20 @@ import { OnePostComponent } from '../one-post/one-post/one-post.component';
 
   getOnePost(post) {
     this.router.navigate(['/posts', post.id]);
+  }
+
+  getLikes(post) {
+    this.likeService.getLikes(post.id).subscribe({
+      next: like => this.likes = like,
+      error: error => console.error (error)
+    })
+  }
+
+  getUser() {
+    this.postsService.getUser().subscribe({
+      next: user => this.user = user,
+      error: error => console.error (error)
+    })
   }
 
 }

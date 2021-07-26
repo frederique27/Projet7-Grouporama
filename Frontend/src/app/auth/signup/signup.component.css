@@ -1,0 +1,8 @@
+.alert{
+    padding: 0!important;
+    color: red;
+}
+
+button:focus {
+    outline: 1px dotted black;
+  }

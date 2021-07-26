@@ -17,6 +17,7 @@ export class PostFormComponent implements OnInit {
   photo: string;
   posts: Post[];
   file: File;
+  loading = false;
 
 
   constructor(
@@ -27,6 +28,7 @@ export class PostFormComponent implements OnInit {
     ) { }
               
   ngOnInit() {
+    this.loading = true;
     this.initForm();
   }
 
@@ -40,11 +42,14 @@ export class PostFormComponent implements OnInit {
   }
   
   onSavePost() {
+    this.loading = true;
     const textPost = this.postForm.get('textPost').value; 
     const userId = this.authService.getUserId();
-    this.postsService.createNewPost(textPost, this.file, userId).subscribe({  
-      next: response => console.log(response),
-      error: error => console.error (error)
+    this.postsService.createNewPost(textPost, this.file, userId).subscribe((response)=>{  
+      this.loading = false;
+      console.log(response)
+      // next: response => console.log(response),
+      // error: error => console.error (error)
     })
     this.router.navigate(['/posts']);
   }

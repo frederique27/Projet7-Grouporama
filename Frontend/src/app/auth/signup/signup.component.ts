@@ -53,7 +53,7 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['auth/signin']);
       },
       (error) => {
-        this.errorMessage = error;
+        this.errorMessage = JSON.stringify(error.error);
       }
     );
   }

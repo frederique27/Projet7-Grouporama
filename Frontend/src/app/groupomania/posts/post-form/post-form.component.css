@@ -16,7 +16,7 @@ textarea.form-control {
     position: absolute;
     top: 2px;
     right: 2px;
-    background-color: rgb(90 109 212);
+    background-color: rgb(54 69 156)!important;
     color: white;
     cursor: pointer;
 }
@@ -29,4 +29,8 @@ textarea.form-control {
 
 .formContent {
     position: relative;
+}
+
+button:focus, div:focus {
+    outline: 1px dotted black;
 }

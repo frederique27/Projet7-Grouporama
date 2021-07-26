@@ -67,8 +67,14 @@ hr {
 .iconThumbs {
     margin-right: 10px;
     margin-left: 5px;
+    font-size: 19px;
+    color: rgb(77 78 84);
 }
 
 .userInfo {
     cursor: pointer;
+}
+
+div:focus {
+    outline: 1px dotted black;
 }

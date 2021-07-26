@@ -27,4 +27,8 @@ export class PostsService {
     return this.testHttp.deletePost(id)
   }
 
+  getUser() {
+    return this.testHttp.getUser()
+  }
+
 }

@@ -7,6 +7,12 @@
                  id="name"
                  class="form-control"
                  formControlName="name">
+          <div *ngIf="signupForm.controls['name'].invalid && (signupForm.controls['name'].dirty || signupForm.controls['name'].touched)" class="alert">
+            <div *ngIf="signupForm.controls['name'].errors.required"
+              aria-label="Veuillez entrer votre prénom">
+              Veuillez entrer votre prénom
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="username" class="formLabel">Nom d'utilisateur</label>
@@ -14,6 +20,12 @@
                  id="username"
                  class="form-control"
                  formControlName="username">
+          <div *ngIf="signupForm.controls['username'].invalid && (signupForm.controls['username'].dirty || signupForm.controls['username'].touched)" class="alert">
+            <div *ngIf="signupForm.controls['username'].errors.required"
+              aria-label="Veuillez entrer votre nom d'utilisateur">
+              Veuillez entrer votre nom d'utilisateur
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -22,6 +34,12 @@
                  id="email"
                  class="form-control"
                  formControlName="email">
+          <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)" class="alert">
+            <div *ngIf="signupForm.controls['email'].errors.required"
+              aria-label="Veuillez entrer votre email">
+              Veuillez entrer votre email
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="password" class="formLabel">Mot de passe</label>
@@ -29,9 +47,16 @@
                  id="password"
                  class="form-control"
                  formControlName="password">
+          <div *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)" class="alert">
+            <div *ngIf="signupForm.controls['password'].errors.required"
+              aria-label="Votre mot de passe doit contenir au moins 6 caractères">
+              Votre mot de passe doit contenir au moins 6 caractères
+            </div>
+          </div>
         </div>
         <button class="btn"
                 type="submit"
+                aria-label="Bouton Créer mon compte"
                 [disabled]="signupForm.invalid">Créer mon compte</button>
       </form>
       <p class="text-danger">{{ errorMessage }}</p>

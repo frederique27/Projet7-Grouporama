@@ -30,7 +30,7 @@ body {
     text-align: center;
     padding: 15px 30px;
     background-color: rgb(228 228 228 / 80%); 
-    margin: 40px auto;
+    margin: 40px auto 0;
 }
 
 .formLabel {
@@ -53,11 +53,12 @@ body {
     font-size: 16px;
     margin-top: 20px;
     color: white!important;
-    background-color: rgb(90 109 212)!important;
-    border-color: rgb(90 109 212)!important;
+    background-color: rgb(54 69 156)!important;
+    border-color: rgb(54 69 156)!important;
 }
 
-
-/* .form-control {
-    border-radius: 26px
-} */
+@media screen and (max-width: 390px) {
+    .formContent {
+        padding: 5px;
+  }
+}

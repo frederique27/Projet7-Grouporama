@@ -8,6 +8,7 @@ const multer = require('../middleware/multer-config');
 //LIKE//
 router.post('/:id/like', auth, likeCtrl.likePost);
 router.get('/:id/like', auth, likeCtrl.getLikes);
+router.get('/:id/like', auth, likeCtrl.getDislikes);
 
 //COMMENT//
 router.post('/:id/comment', auth, commentCtrl.createComment);

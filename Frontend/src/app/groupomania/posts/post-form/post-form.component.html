@@ -1,7 +1,7 @@
 <div class="col-sm-8 formContent">
-	<div id="xBtn" routerLink="/posts"><p>x</p></div>
+	<div tabindex="0" id="xBtn" routerLink="/posts"><p>x</p></div>
 	<h2>Exprimez-vous...</h2>
-	<form [formGroup]="postForm" (ngSubmit)="onSavePost()">
+	<form [formGroup]="postForm" *ngIf="loading" (ngSubmit)="onSavePost()">
 		<div class="form-group">
 			<editor
 				apiKey="u0eog1hcputib65bhuf63vh2mudkoemqvakn6qqcqfsotg0b"
@@ -25,11 +25,17 @@
 			type="file" (change)="detectFiles($event.target.files)"
 			class="form-control">
 
-			<button class="btn" type="button" (click)="fileInput.click()">Choisir une image</button>
+			<button 
+			class="btn" 
+			type="button" 
+			aria-label="Bouton choisir une image"
+			(click)="fileInput.click()">
+			Choisir une image</button>
 			<img [src]="photo" *ngIf="photo" style="max-height: 100px;display:block;margin-top:10px">
 
 			<button class="btn" 
 			[disabled]="postForm.invalid"
+			aria-label="Bouton publier"
 			type="submit">Publier
 			</button>
 		</div>

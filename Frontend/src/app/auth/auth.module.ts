@@ -3,6 +3,7 @@ import { SharedModule } from "../shared/shared.module";
 import { AuthRoutingModule } from "./auth.routing.module";
 import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { SignupComponent } from "./signup/signup.component";
   ],
   imports: [
     AuthRoutingModule,
+    FontAwesomeModule,
     SharedModule
   ],
   providers: [

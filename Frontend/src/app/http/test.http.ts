@@ -56,4 +56,8 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.delete(`${this.url}profile`)
     }
 
+    getUser():Observable<any>{
+        return this.httpClient.get(`${this.url}profile`)
+    }
+
 } 

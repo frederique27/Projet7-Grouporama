@@ -1,10 +1,10 @@
 <div class="container mt-5 mb-5"  *ngIf="user">
     <div class="row d-flex align-items-center justify-content-center">
         <div class="col-md-6">
-            <div class="card" *ngFor="let post of posts; let index = index">
-                <div class="d-flex justify-content-between p-2 px-2" (click)="getOnePost(post)">
-                    <div class="d-flex flex-row align-items-center userInfo"> 
-                        <img [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="50" class="rounded-circle profilePic">
+            <div tabindex="0" class="card userInfo" *ngFor="let post of posts; let index = index" (click)="getOnePost(post)">
+                <div class="d-flex justify-content-between p-2 px-2">
+                    <div class="d-flex flex-row align-items-center"> 
+                        <img alt="Photo profil de l'auteur de la publication" [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="50" class="rounded-circle profilePic">
                         <div class="d-flex flex-column ml-2"> 
                             <span class="font-weight-bold">{{user.username | titlecase}}</span> 
                             <small class="mr-2">Publié le {{post.createdAt | date: 'dd/MM/yyyy'}}</small> 
@@ -17,11 +17,11 @@
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-row icons d-flex align-items-center">
-                            <p>{{post.likes}}</p>
+                            <!-- <p>{{post.likes}}</p> -->
                             <fa-icon class="iconThumbs" [icon]="faThumbsUp" [ngClass]="{'onLike': post.likes === 1}"></fa-icon>
-                            <p>{{post.dislikes}}</p>
+                            <!-- <p>{{post.dislikes}}</p> -->
                             <fa-icon class="iconThumbs" [icon]="faThumbsDown" [ngClass]="{'onDislike': post.likes === -1}"></fa-icon>
-                            <p>{{post.dislikes}}</p> <!-- nbrComments -->
+                            <!-- <p>{{post.dislikes}}</p> nbrComments -->
                             <fa-icon class="iconThumbs" [icon]="faCommentAlt"></fa-icon>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ import { LikeService } from './services/like.service';
 import { CommentService } from './services/comment.service';
 import { ProfileModule } from './groupomania/profile/profile.module';
 import { ProfileService } from './services/profile.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const appRoutes: Routes = [ 
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     // AuthModule,
     // PostsModule,
     BrowserModule,
+    ReactiveFormsModule,
     // ProfileModule
     RouterModule.forRoot(appRoutes)
   ],

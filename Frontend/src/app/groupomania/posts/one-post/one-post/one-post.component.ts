@@ -9,11 +9,12 @@ import { LikeService } from 'src/app/services/like.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/services/comment.service';
 import { Location } from '@angular/common';
+import { User } from 'src/app/groupomania/models/Users.model';
 //FONTAWESOME ICONS//
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-import { User } from 'src/app/groupomania/models/Users.model';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-one-post',
@@ -24,6 +25,7 @@ export class OnePostComponent implements OnInit {
   faThumbsUp = faThumbsUp;
   faThumbsDown = faThumbsDown;
   faTrash = faTrashAlt;
+  faEdit = faEdit;
 
   post: Post[] = [];
   comments: Comment[];
@@ -93,13 +95,16 @@ export class OnePostComponent implements OnInit {
       });
   }
 
-  // onDislikePost(post) {
-  //   const publicationLike = {
-  //     postId: post.id,
-  //     likes: -1,
-  //   };
-  //   this.likeDislike(publicationLike)
-  // }
+  onDislikePost(post) {
+    const publicationLike = {
+      postId: post.id,
+      likes: -1,
+    };
+    this.likeService.likePost(publicationLike, this.postId)
+      .subscribe(() => {
+        this.getLikes();
+      });
+  }
   getLikes() {
     this.likeService.getLikes(this.postId).subscribe({
       next: like => this.likes = like,
@@ -117,9 +122,11 @@ export class OnePostComponent implements OnInit {
   submitComment(event, post) {
     if (event.keyCode === 13) {
       const textComment = this.commentForm.get('textComment').value; 
-      this.commentService.newComment(textComment, post.id).subscribe({  
-        next: res => this.getComments(),
-        error: error => console.error (error)
+      this.commentService.newComment(textComment, post.id).subscribe(()=>{ 
+        this.commentForm.reset()
+        this.getComments()
+        // next: res => this.getComments(),
+        // error: error => console.error (error)
       })
     }
   }

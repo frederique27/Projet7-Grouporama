@@ -1,14 +1,14 @@
 const db = require('../config/db.config.js');
 const dbLike = db.like;
-const dbPost = db.post;
+const dbPost = db.post; 
 const dbUser = db.user;
 const dbComment = db.comment;
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); 
 const fs = require('fs');
 
 function getUserIdFromRequest(req) {
     return req.headers.authorization.split(' ')[2];
-  }
+  } 
   // postId: req.body.postId 
 exports.createComment = (req, res, next) => {
   let newComment = {};

@@ -6,22 +6,30 @@
 .navbar a {
     padding: 15px 0 3px 0;
     margin-left: 20px;
+    color: rgb(0 0 0 / 66%)!important;
 }
 
-.navbar-nav > .active > a {
+.navbar a:hover {
+    color: rgb(0 0 0)!important;
+}
+
+/* .navbar-nav > .active > a {
     border-bottom: 1px solid gray;
     background-color: white!important;
-}
+} */
 
 nav img {
-    width: 180px;
+    width: 185px;
     margin-top: 5px;
 }
 
 fa-icon {
-    font-size: 18px;
+    font-size: 22px;
     padding: 6px;
-    color: black;
+    color: rgb(21 19 19 / 72%);
+}
+fa-icon:hover {
+    color: rgb(0 0 0)!important;
 }
 
 .dropdown-menu {
@@ -36,6 +44,7 @@ fa-icon {
 
 ul {
     margin-right: 25px;
+    position: relative;
 }
 
 ngb-toast {
@@ -49,9 +58,7 @@ ngb-toast {
     padding: 5px;
     border-radius: 5px;
 }
-ul{
-    position: relative;
-}
+
 .notifications-item {
     display: flex;
     align-items: center;
@@ -97,3 +104,24 @@ ul{
     cursor: pointer;
     position: relative;
 }
+
+a:focus, li:focus {
+    outline: 1px dotted black;
+}
+
+@media screen and (max-width: 545px) {
+    .navbar>.container-fluid {
+      flex-direction: column;
+    }
+    ul {
+        margin-right: 0;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .navbar {
+        padding: 10px 0;
+    }
+  }
+
+  

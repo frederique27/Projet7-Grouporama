@@ -14,8 +14,10 @@ export class AuthService {
   authToken: string;
   userId: string;
   user: User[]
+  success: boolean
   private userSubject: BehaviorSubject<User>;
   public users: Observable<User>;
+  private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false')
 
 
   constructor(private http: HttpClient,
@@ -28,6 +30,15 @@ export class AuthService {
 
 public get userValue(): User {
   return this.userSubject.value;
+}
+
+setLoggedIn(value: boolean) {
+  this.loggedInStatus = value
+  localStorage.setItem('loggedIn', 'true')
+}
+
+get isLoggedIn() {
+  return JSON.parse(localStorage.getItem('loggedIn') || this.loggedInStatus.toString())
 }
 
  signInUser(user) {

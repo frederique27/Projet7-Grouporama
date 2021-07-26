@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
 // import { User } from 'src/app/groupomania/models/Users.model';
 // import { Injectable } from '@angular/core';
 // import { BehaviorSubject } from 'rxjs';
@@ -15,6 +16,7 @@ export class SigninComponent implements OnInit {
 
   signInForm: FormGroup;
   errorMessage: string;
+  fieldTextType: boolean;
   // users: User[];
   // isAuth$ = new BehaviorSubject<boolean>(false);
   // authToken: string;
@@ -108,11 +110,10 @@ export class SigninComponent implements OnInit {
     this.authService.signInUser(user).then(
       () => {
         this.router.navigate(['/posts']);
-        console.log('ok');
         // this.authService.storeUserData(data.token, data.user);
       },
       (error) => {
-        this.errorMessage = error;
+        this.errorMessage = JSON.stringify(error.error);
       }
     );
   }
