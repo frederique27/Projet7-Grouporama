@@ -6,7 +6,7 @@
                     <div class="d-flex flex-row align-items-center userInfo"> 
                         <img alt="Photo profil de l'auteur de la publication" [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="50" class="rounded-circle profilePic">
                         <div class="d-flex flex-column ml-2"> 
-                            <span class="font-weight-bold">{{user.username | titlecase}}</span> 
+                            <span class="font-weight-bold">{{post.Users[0].username | titlecase}}</span> 
                             <small class="mr-2">Publié le {{post.createdAt | date: 'dd/MM/yyyy'}}</small> 
                         </div>
                     </div>
@@ -48,12 +48,12 @@
                         </div>
                     </form>
                     <div class="comments" *ngFor="let comment of comments; let index = index">
-                        <div class="d-flex flex-row mb-2"> <img alt="Photo profil de l'auteur du commentaire" [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="40" class="rounded-image profilePic">
+                        <div class="d-flex flex-row mb-2"> <img [src]="user.profilePic ? user.profilePic : '../../../assets/noprofilepic.jpg'" width="40" class="rounded-image profilePic">
                             <div class="d-flex flex-column ml-2"> 
-                                <span class="name">{{user.username | titlecase}} <small>  Publié le {{comment.createdAt | date: 'dd/MM/yyyy'}}</small></span> 
+                                <span class="name">{{comment.user.username | titlecase}} <small>  Publié le {{comment.createdAt | date: 'dd/MM/yyyy'}}</small></span> 
                                 <small class="comment-text">{{comment.textComment}}</small>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>

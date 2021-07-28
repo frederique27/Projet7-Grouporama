@@ -1,8 +1,5 @@
-const db = require('../config/db.config.js');
-const dbLike = db.like;
-const dbPost = db.post; 
-const dbUser = db.user;
-const dbComment = db.comment;
+const db = require('../models');
+const dbComment = db.Comment;
 const jwt = require('jsonwebtoken'); 
 const fs = require('fs');
 
@@ -35,21 +32,27 @@ exports.getComment = async (req, res, next) => {
 	try { 
 		const comments = await dbComment.findAll({
 			order: [['createdAt', 'DESC']],
-			where: { postId: req.params.id }
+			where: { postId: req.params.id },
+      include: [{
+        model: db.User, required: true, 
+        as: 'user' 
+        // model: db.User, required: true,
+        // attributes: ['username', 'profilePic']
+    }]
 		});
 		if (comments) {
       // dbPost.increment('likes')
       // .then(() => res.status(201).json(comments))
 			res.status(200).json(comments);
 		} 
-     dbComment.count({ where: { postId: req.params.id }
-  }).then(c => {
-    console.log("There are " + c + " comments!")
+    //  dbComment.count({ where: { postId: req.params.id }
+  // }).then(c => {
+    // console.log("There are " + c + " comments!")
     // res.status(200).json(c);
-  })
-    // else {
-		// 	throw new Error("There are no comments");
-		// }
+  // })
+    else {
+			throw new Error("There are no comments");
+		}
     // dbPost.increment('likes', {where: {postId: req.body.postId}})
     // .then(() => res.status(201).json({ message: `comment registered` }))
     // .catch(() => res.status(404).json("publication not found"));

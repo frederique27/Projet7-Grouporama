@@ -136,6 +136,7 @@ export class OnePostComponent implements OnInit {
       this.commentService.getComments(params.id)
     .subscribe((comment)=>{
       this.comments = comment
+      console.log(comment)
       this.getOnePost()
       }) 
     })

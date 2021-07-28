@@ -1,6 +1,6 @@
-const db = require('../config/db.config.js');
-const dbLike = db.like;
-const dbPost = db.post;
+const db = require('../models');
+const dbLike = db.Like;
+const dbPost = db.Post;
 
 function getUserIdFromRequest(req) {
   return req.headers.authorization.split(' ')[2]; 

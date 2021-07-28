@@ -64,7 +64,7 @@ get isLoggedIn() {
     createNewUser(user) {
     return new Promise(
       (resolve, reject) => { 
-        this.http.post('http://localhost:3000/api/auth/signup', user).subscribe(
+        this.http.post('http://localhost:4200/api/auth/signup', user).subscribe(
           (response) => {
             this.userSubject.next(user);
             // this.user = user;
@@ -83,7 +83,7 @@ get isLoggedIn() {
   // createNewUser(user) {
   //   return new Promise(
   //     (resolve, reject) => { 
-  //       this.http.post('http://localhost:3000/api/auth/signup', user).subscribe(
+  //       this.http.post('http://localhost:/api/auth/signup', user).subscribe(
   //         (response) => {
   //           resolve(response);
   //         },
@@ -97,7 +97,7 @@ get isLoggedIn() {
 
   // signInUser(user) {
   //   return new Promise((resolve, reject) => {
-  //     this.http.post('http://localhost:3000/api/auth/signin', user).subscribe(
+  //     this.http.post('http://localhost:/api/auth/signin', user).subscribe(
   //       (response: { userId: string, authToken: string }) => {
   //         this.userId = response.userId;
   //         this.authToken = response.authToken;
@@ -157,7 +157,7 @@ get isLoggedIn() {
 
     //   signInUser(email: string, password: string) {
   //   // return new Promise((resolve, reject) => {
-  //     return this.http.post<any>('http://localhost:3000/api/auth/signin', {email: email, password: password})
+  //     return this.http.post<any>('http://localhost:/api/auth/signin', {email: email, password: password})
   //     .pipe(map(user => {
   //       // user.authdata = window.btoa(username + ':' + password);
   //       localStorage.setItem('user', JSON.stringify(user));

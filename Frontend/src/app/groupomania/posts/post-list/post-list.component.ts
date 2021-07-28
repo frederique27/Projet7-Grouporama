@@ -52,6 +52,7 @@ import { LikeService } from 'src/app/services/like.service';
   getPosts(){
     this.postsService.getPosts().subscribe((posts)=>{
       this.posts = posts
+      console.log(posts);
       // this.onePostComponent.getLikes()
       // next: posts => this.posts = posts,
       // error: error => console.error (error)

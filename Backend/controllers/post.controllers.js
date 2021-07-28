@@ -1,8 +1,5 @@
-const db = require('../config/db.config.js');
-const dbPost = db.post;
-const dbUser = db.user;
-const dbComment = db.comment;
-const dbLike = db.like;
+const db = require('../models');
+const dbPost = db.Post;
 const fs = require('fs');
 
 function getUserIdFromRequest(req) {
@@ -11,45 +8,17 @@ function getUserIdFromRequest(req) {
 
 // routes GET
 exports.getAllPosts = (req, res, next) => {
-    // const nbrComments = dbComment.count({
-        // where: {
-        //     postId: req.body.postId
-        //   }
-    // })
-    // dbComment.findAndCountAll(
-    //     {
-    //     include: [
-    //        { model: Profile, required: true}
-    //     ],
-    //     // limit: 3
-    //   }
-    //   )
-    //   .then(c => {
-    //     console.log("There are " + JSON.stringify(c) + " comments!")
-    //   })
-    // dbComment.count({ where: { postId: req.body.postId }
-    //   }).then(c => {
-    //     console.log("There are " + JSON.stringify(c) + " comments!")
-    //     // return res.status(200).json(c);
-    //   })
-    //   .catch(error => res.status(402).json({ error }));
-    // dbComment.findAll({ include: [ dbPost ] }).then(comments => {
-    // console.log(JSON.stringify(comments))
-    // })
     dbPost.findAll({
-        // include: [{
-        //     model: dbUser, required: true
-        //     // attributes: ['username']
-        // }],
+        include: [{
+            model: db.User, required: true,
+            attributes: ['username', 'profilePic']
+        }],
         order: [ 
-        ['createdAt', 'DESC']
+        ['createdAt', 'DESC'] 
     ],
     })
       .then(post => {
-        // console.log("COUCOUUUUUU" + json(nbrComments));
-          res.status(200).json(post);
-          
-        //   return res.json(nbrComments);
+          res.status(200).json(post); 
       })
       .catch(error => res.status(402).json({ error }));
 };
@@ -58,6 +27,10 @@ exports.getOnePost = (req, res, next) => {
     const postId = req.params.id;
     dbPost.findOne({ 
         where: { id: postId },
+        include: [{
+            model: db.User, required: true,
+            attributes: ['username', 'profilePic']
+        }]
     }).then(post => res.status(200).json(post))
 	  .catch(error => res.status(500).json({ error }));
 };
@@ -96,7 +69,6 @@ exports.deletePost = (req, res, next) => {
             dbPost.destroy({ where: { id: postId } }) //ensuite supprime de la base de donnée
 			.then(() => res.status(200).json({ message: 'Post supprimé !' }))
 			.catch(error => res.status(403).json({ error }));
-        // }
 		})
 	  .catch(error => res.status(500).json({ error }));
 };

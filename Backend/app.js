@@ -13,7 +13,7 @@ const likeCommentRoutes = require('./routes/likeComment.routes');
 const profileRoutes = require('./routes/profile.routes');
 const notifsRoutes = require('./routes/notifs.routes');
 
-const db = require('./config/db.config');
+// const db = require('./config/db.config');
 
 
 //Application express 
@@ -40,9 +40,17 @@ app.use(expressShield({
 
 
 //Connexion DB
-db.sequelize.sync({force: true})
-  .then(() => console.log('sync réussie !'))
-  .catch(err => console.log('sync échouée: ' + err));
+// db.sequelize.sync({force: true})
+//   .then(() => console.log('sync réussie !'))
+//   .catch(err => console.log('sync échouée: ' + err));
+
+const { sequelize } = require ('./models')
+
+async function main() {
+    await sequelize.authenticate()
+    console.log('connexion réussie !')
+}
+main()
 
 //Routes
 app.use('/images', express.static(path.join(__dirname, 'images')));
