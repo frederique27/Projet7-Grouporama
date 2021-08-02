@@ -2,33 +2,27 @@ import { Injectable } from '@angular/core';
 import { TestHttp } from '../http/test.http';
 @Injectable()
 export class PostsService {
-  
-  constructor(private testHttp: TestHttp) {}
 
-  getPosts() {
-    return this.testHttp.getPost()
-  }
- 
-  getPostById(id: string) {
-    return this.testHttp.getOnePost(id)
-  }
+	constructor(private testHttp: TestHttp) { }
 
-  createNewPost(textPost: string, photo: File, userId: string) {
-    const formData: FormData = new FormData()
-    formData.append("image", photo)
-    formData.append("textPost", textPost)
-    // formData.append("userId", userId)
-    // console.log(photo);
-    return this.testHttp.createPost(formData)
+	getPosts() {
+		return this.testHttp.getPost()
+	}
 
-  }
+	getPostById(id: number) {
+		return this.testHttp.getOnePost(id)
+	}
 
-  deletePost(id) {
-    return this.testHttp.deletePost(id)
-  }
+	createNewPost(textPost: string, photo: File, userId: string) {
+		const formData: FormData = new FormData()
+		formData.append("image", photo)
+		formData.append("textPost", textPost)
+		return this.testHttp.createPost(formData)
 
-  getUser() {
-    return this.testHttp.getUser()
-  }
+	}
+
+	deletePost(id) {
+		return this.testHttp.deletePost(id)
+	}
 
 }

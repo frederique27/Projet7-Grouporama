@@ -13,8 +13,6 @@ router.get('/:id/like', auth, likeCtrl.getDislikes);
 //COMMENT//
 router.post('/:id/comment', auth, commentCtrl.createComment);
 router.get('/:id/comment', auth, commentCtrl.getComment);
-router.put('/comment', auth, commentCtrl.modifyComment);
-router.delete('/comment', auth, commentCtrl.deleteComment);
 
 
 module.exports = router;

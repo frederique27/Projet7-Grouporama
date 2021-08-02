@@ -7,13 +7,13 @@ import { Post } from "../groupomania/models/Posts.model";
 @Injectable ({ providedIn: 'root'})
 
 export class TestHttp extends InterfaceHttp {
-    //AUTH//
-    // signUp(name: string, username: string, email: string, password: string){
-    //     return this.httpClient.post(`${this.url}auth/signup`, {name: name, username: username, email: email, password: password})
-    // }
-    // signIn(email: string, password: string){
+    // signupUser(newUser){
     //     // return this.httpClient.post(`${this.url}auth/signin`, formData)
-    //     return this.httpClient.post(`${this.url}auth/signin`, {email: email, password: password, withCredentials: true})
+    //     return this.httpClient.post(`${this.url}auth/signin`, newUser)
+    // }
+    //  loginUser(loginUser){
+    //     // return this.httpClient.post(`${this.url}auth/signin`, formData)
+    //     return this.httpClient.post(`${this.url}auth/signin`, loginUser)
     // }
 
     //POSTS//
@@ -31,6 +31,7 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.delete(`${this.url}posts/`+id)
     }
 
+    //LIKES//
     likePost(publicationLike, id): Observable<any>{
         return this.httpClient.post(`${this.url}posts/${id}/like`, publicationLike)
     }
@@ -38,6 +39,7 @@ export class TestHttp extends InterfaceHttp {
         return this.httpClient.get(`${this.url}posts/${id}/like`, id)
     }
 
+    //COMMENTS//
     newComment(textComment: string, id):Observable<any>{
         return this.httpClient.post(`${this.url}posts/${id}/comment`, {textComment: textComment, postId: id})
     }
@@ -55,9 +57,4 @@ export class TestHttp extends InterfaceHttp {
     deleteUser():Observable<any>{
         return this.httpClient.delete(`${this.url}profile`)
     }
-
-    getUser():Observable<any>{
-        return this.httpClient.get(`${this.url}profile`)
-    }
-
 } 

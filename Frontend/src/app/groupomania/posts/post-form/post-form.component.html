@@ -1,7 +1,7 @@
 <div class="col-sm-8 formContent">
 	<div tabindex="0" id="xBtn" routerLink="/posts"><p>x</p></div>
 	<h2>Exprimez-vous...</h2>
-	<form [formGroup]="postForm" *ngIf="loading" (ngSubmit)="onSavePost()">
+	<form [formGroup]="postForm" (ngSubmit)="onSavePost()">
 		<div class="form-group">
 			<editor
 				apiKey="u0eog1hcputib65bhuf63vh2mudkoemqvakn6qqcqfsotg0b"
@@ -19,7 +19,6 @@
 			></editor>
 		</div>
 		<div id="formNewPost">
-			<!-- <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p> -->
 			<input #fileInput 
 			style="display: none" 
 			type="file" (change)="detectFiles($event.target.files)"

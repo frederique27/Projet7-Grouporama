@@ -9,10 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'users',
+          },
+          key: 'id'
+        }
       },
       postId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'posts',
+          },
+          key: 'id'
+        } 
       },
       likes: {
         type: Sequelize.INTEGER

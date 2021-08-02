@@ -4,9 +4,6 @@ const profileCtrl = require('../controllers/profile.controllers');
 const auth = require('../middleware/auth');
 const multer = require ('../middleware/multer-config');
 
-// router.get('/users', auth, profileCtrl.getAllUsers);
-// router.post('/users', auth, profileCtrl.getOneUser);
-
 router.get('/', auth, profileCtrl.getProfile);
 router.put('/', auth, multer, profileCtrl.editPhoto);
 router.delete('/', auth, profileCtrl.deleteProfile);

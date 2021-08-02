@@ -14,67 +14,57 @@ import { User } from '../../models/Users.model';
 import { OnePostComponent } from '../one-post/one-post/one-post.component';
 import { LikeService } from 'src/app/services/like.service';
 
-@Component({ 
-  selector: 'app-post-list',
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.css']
+@Component({
+	selector: 'app-post-list',
+	templateUrl: './post-list.component.html',
+	styleUrls: ['./post-list.component.css']
 })
 
-  export class PostListComponent implements OnInit {
-  faThumbsUp = faThumbsUp;
-  faThumbsDown = faThumbsDown;
-  faTrash = faTrashAlt;
-  faCommentAlt = faCommentAlt;
+export class PostListComponent implements OnInit {
+	faThumbsUp = faThumbsUp;
+	faThumbsDown = faThumbsDown;
+	faTrash = faTrashAlt;
+	faCommentAlt = faCommentAlt;
 
-  posts: Post[];
-  comments: Comment[];
-  likes: Like[];
-  userId: string;
-  user: User;
+	posts: Post[];
+	comments: Comment[];
+	likes: Like[];
+	userId: string;
+	user: User;
+	loading: boolean;
 
-  constructor(
-    private postsService: PostsService, 
-    private authService : AuthService,
-    private likeService : LikeService,
-    private router: Router,
-    // private onePostComponent: OnePostComponent
-  ) {
-    this.user = this.authService.userValue;
-    // this.user = this.profileService.getProfile;
-  }
+	constructor(
+		private postsService: PostsService,
+		private authService: AuthService,
+		private likeService: LikeService,
+		private router: Router,
+	) { this.user = new User(); }
 
-  ngOnInit() {
-    this.userId = this.authService.getUserId();
-    this.getPosts();
-    console.log(this.user);
-  }
+	ngOnInit() {
+		this.userId = this.authService.getUserId();
+		this.loading = true;
+		this.getPosts();
+	}
 
-  getPosts(){
-    this.postsService.getPosts().subscribe((posts)=>{
-      this.posts = posts
-      console.log(posts);
-      // this.onePostComponent.getLikes()
-      // next: posts => this.posts = posts,
-      // error: error => console.error (error)
-    })
-  }
+	getPosts() {
+		this.postsService.getPosts().subscribe((posts) => {
+			this.posts = posts
+			this.loading = false;
+			console.log(posts);
+		},
+			(err) => {
+				this.loading = false;
+			})
+	}
 
-  getOnePost(post) {
-    this.router.navigate(['/posts', post.id]);
-  }
+	getOnePost(post) {
+		this.router.navigate(['/posts', post.id]);
+	}
 
-  getLikes(post) {
-    this.likeService.getLikes(post.id).subscribe({
-      next: like => this.likes = like,
-      error: error => console.error (error)
-    })
-  }
-
-  getUser() {
-    this.postsService.getUser().subscribe({
-      next: user => this.user = user,
-      error: error => console.error (error)
-    })
-  }
-
+	getLikes(post) {
+		this.likeService.getLikes(post.id).subscribe({
+			next: like => this.likes = like,
+			error: error => console.error(error)
+		})
+	}
 }

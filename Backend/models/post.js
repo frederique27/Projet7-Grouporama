@@ -4,24 +4,36 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
+      // models.Post.hasMany(models.Comment, { onDelete: "CASCADE", hooks: true });
+
+      // models.Post.belongsTo(models.User, {
+      //   foreignKey: {
+      //     allowNull: false,
+      //   },
+      // });
       models.Post.belongsTo(models.User, 
-        { foreignKey: 'userId' }
+        { foreignKey: 'userId' },
+        { onDelete: 'cascade' } //
       );
+
       models.Post.hasMany(models.Comment,
+        { foreignKey: 'postId' },
         { onDelete: 'cascade' });
       
-      models.Post.hasMany(models.Like,
-        { onDelete: 'cascade' });
+      // models.Post.hasMany(models.Like,
+      //   { foreignKey: 'postId' },
+      //   { onDelete: 'cascade' });
     }
   };
   Post.init({
-    userId: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull:     false,
+      primaryKey:    true,
+      autoIncrement: true,
+    },
+    userId: DataTypes.INTEGER,
     photo: DataTypes.STRING,
     textPost: {
       type: DataTypes.TEXT,
@@ -39,9 +51,7 @@ module.exports = (sequelize, DataTypes) => {
             }
           },
       }
-    },
-    likes: DataTypes.INTEGER,
-    dislikes: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Post',

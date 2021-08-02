@@ -9,49 +9,39 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  faBell = faBell;
-  faPlus = faPlus;
-  faUserCircle = faUserCircle;
-  faSignOutAlt = faSignOutAlt;
-  faCircle = faCircle;
+	faBell = faBell;
+	faPlus = faPlus;
+	faUserCircle = faUserCircle;
+	faSignOutAlt = faSignOutAlt;
+	faCircle = faCircle;
 
-  isAuth: boolean;
-  authSubscription: Subscription; //
-  show = false;
-  notif = true;
+	isAuth: boolean;
+	authSubscription: Subscription; //
+	show = false;
+	notif = true;
 
 
-  constructor(private authService: AuthService,
-              private router: Router ) { }
+	constructor(private authService: AuthService,
+		private router: Router) { }
 
-  ngOnInit() {
-    this.authSubscription = this.authService.isAuth$.subscribe(
-      (authService) => {
-        this.isAuth = authService;
-      }
-    );
-  }
+	ngOnInit() {
+		this.authSubscription = this.authService.isAuth$.subscribe(
+			(authService) => {
+				this.isAuth = authService;
+			}
+		);
+	}
 
-  onSignOut() {
-    this.authService.signOutUser();
-  }
+	onSignOut() {
+		this.authService.signOutUser();
+	}
 
-  newPost() {
-    this.router.navigate(['/posts', 'new']);
-  }
-
-  // notifications() {
-
-  // }
-
-  // profile() {
-  //   this.router.navigate(['/profile']);
-  // }
-      
-
+	newPost() {
+		this.router.navigate(['/posts', 'new']);
+	}
 }

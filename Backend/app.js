@@ -11,10 +11,6 @@ const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const likeCommentRoutes = require('./routes/likeComment.routes');
 const profileRoutes = require('./routes/profile.routes');
-const notifsRoutes = require('./routes/notifs.routes');
-
-// const db = require('./config/db.config');
-
 
 //Application express 
 const app = express();
@@ -40,15 +36,13 @@ app.use(expressShield({
 
 
 //Connexion DB
-// db.sequelize.sync({force: true})
-//   .then(() => console.log('sync réussie !'))
-//   .catch(err => console.log('sync échouée: ' + err));
-
 const { sequelize } = require ('./models')
 
 async function main() {
-    await sequelize.authenticate()
-    console.log('connexion réussie !')
+  await sequelize.sync({force: true})
+    // await sequelize.authenticate()
+    .then(() => console.log('sync réussie !'))
+    .catch(err => console.log('sync échouée: ' + err));
 }
 main()
 
@@ -58,6 +52,5 @@ app.use('/api/auth', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/posts', likeCommentRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/posts', notifsRoutes);
 
 module.exports = app; 

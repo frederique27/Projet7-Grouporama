@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { TestHttp } from '../http/test.http';
-import { Observable, of } from 'rxjs';
-
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class LikeService {
-  
-  constructor(private testHttp: TestHttp) {}
+
+	constructor(private testHttp: TestHttp) { }
 
 
-  likePost(publicationLike, id) {
-    return this.testHttp.likePost(publicationLike, id)
-  }
+	likePost(publicationLike, id) {
+		return this.testHttp.likePost(publicationLike, id)
+	}
 
-  getLikes(id) {
-    return this.testHttp.getLikes(id)
-  }
+	getLikes(id) {
+		return this.testHttp.getLikes(id)
+	}
 
 }

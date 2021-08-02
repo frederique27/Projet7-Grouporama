@@ -1,36 +1,36 @@
-    <div class="col-sm-8 col-sm-offset-2 formContent">
-      <h2>Connexion</h2>
-      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="email" class="formLabel">Adresse mail</label>
-          <input type="text"
-                 id="email"
-                 class="form-control"
-                 formControlName="email">
-          <div *ngIf="signInForm.controls['email'].invalid && (signInForm.controls['email'].dirty || signInForm.controls['email'].touched)" class="alert">
-            <div *ngIf="signInForm.controls['email'].errors.required" 
-              aria-label="Veuillez entrer votre email">
-              Veuillez entrer votre email
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password" class="formLabel">Mot de passe</label>
-          <input type="password"
-                 id="password"
-                 class="form-control"
-                 formControlName="password">
-          <div *ngIf="signInForm.controls['password'].invalid && (signInForm.controls['password'].dirty || signInForm.controls['password'].touched)" class="alert">
-            <div *ngIf="signInForm.controls['password'].errors.required"
-              aria-label="Veuillez entrer votre mot de passe">
-              Veuillez entrer votre mot de passe
-            </div>
-          </div>
-        </div>
-        <button class="btn"
-                type="submit"
-                aria-label="Bouton connexion"
-                [disabled]="signInForm.invalid">Connexion</button>
-      </form>
-      <p class="text-danger">{{ errorMessage }}</p>
-    </div>
+<div class="col-sm-8 col-sm-offset-2 formContent">
+	<h2>Connexion</h2>
+	<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+	<div class="form-group">
+		<label for="email" class="formLabel">Adresse mail</label>
+		<input type="text"
+				id="email"
+				class="form-control"
+				formControlName="email">
+		<div *ngIf="signInForm.controls['email'].invalid && (signInForm.controls['email'].dirty || signInForm.controls['email'].touched)" class="alert">
+			<div *ngIf="signInForm.controls['email'].errors.required" 
+				aria-label="Veuillez entrer votre email">
+				Veuillez entrer votre email
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password" class="formLabel">Mot de passe</label>
+		<input type="password"
+				id="password"
+				class="form-control"
+				formControlName="password">
+		<div *ngIf="signInForm.controls['password'].invalid && (signInForm.controls['password'].dirty || signInForm.controls['password'].touched)" class="alert">
+			<div *ngIf="signInForm.controls['password'].errors.required"
+				aria-label="Veuillez entrer votre mot de passe">
+				Veuillez entrer votre mot de passe
+			</div>
+		</div>
+	</div>
+	<button class="btn"
+			type="submit"
+			aria-label="Bouton connexion"
+			[disabled]="signInForm.invalid">Connexion</button>
+	</form>
+	<p class="text-danger">{{ errorMessage }}</p>
+</div>

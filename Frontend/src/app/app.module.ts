@@ -17,11 +17,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [ 
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
-
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   { path: 'posts', loadChildren: () => import('./groupomania/posts/posts.module').then(m => m.PostsModule)},
   { path: 'profile', loadChildren: () => import('./groupomania/profile/profile.module').then(m => m.ProfileModule)},
-  // { path: '**', redirectTo: 'posts' }
 ]; 
 
 @NgModule({
@@ -31,11 +29,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     SharedModule,
-    // AuthModule,
-    // PostsModule,
     BrowserModule,
     ReactiveFormsModule,
-    // ProfileModule
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

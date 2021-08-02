@@ -9,7 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'users'
+          },
+          key: 'id'
+        } 
       },
       photo: {
         type: Sequelize.STRING

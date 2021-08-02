@@ -15,131 +15,132 @@ import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-
+import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-one-post',
-  templateUrl: './one-post.component.html',
-  styleUrls: ['./one-post.component.css']
+	selector: 'app-one-post',
+	templateUrl: './one-post.component.html',
+	styleUrls: ['./one-post.component.css']
 })
 export class OnePostComponent implements OnInit {
-  faThumbsUp = faThumbsUp;
-  faThumbsDown = faThumbsDown;
-  faTrash = faTrashAlt;
-  faEdit = faEdit;
+	faThumbsUp = faThumbsUp;
+	faThumbsDown = faThumbsDown;
+	faTrash = faTrashAlt;
+	faEdit = faEdit;
 
-  post: Post[] = [];
-  comments: Comment[];
-  likes: Like[] = [];
-  userId: string;
-  id: string;
-  postId: string;
-  commentForm: FormGroup;
-  user: User;
+	post: Post[];
+	comments: Comment[];
+	likes: Like[] = [];
+	userId: string;
+	id: string;
+	postId: string;
+	commentForm: FormGroup;
+	user: User;
 
 
-  constructor(
-    private postsService: PostsService, 
-    private authService : AuthService,
-    private likeService: LikeService,
-    private commentService: CommentService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private location: Location
-  ) {
-    this.user = this.authService.userValue;
-   }
+	constructor (
+		private postsService: PostsService,
+		private authService: AuthService,
+		private likeService: LikeService,
+		private commentService: CommentService,
+		private formBuilder: FormBuilder,
+		private route: ActivatedRoute,
+		private location: Location ) 
+		{ this.user = new User() }
 
-  ngOnInit() {
-    this.getOnePost();
-    this.getLikes();
-    this.initForm();
-    this.getComments();
-    this.postId = this.route.snapshot.paramMap.get('id');
-  }
+	ngOnInit() {
+		this.getOnePost();
+		this.getLikes();
+		this.initForm();
+		this.getComments();
+		this.postId = this.route.snapshot.paramMap.get('id');
+		this.userId = this.authService.getUserId();
+	}
 
-  getOnePost() {
-    this.route.params.forEach((params) => {
-        this.postsService.getPostById(params.id)
-      .subscribe((post)=>{
-        this.post = post
-        this.getLikes();
-        })
-    })
-  }
+	getOnePost() {
+		this.route.params.forEach((params) => {
+			this.postsService.getPostById(params.id)
+				.subscribe((post) => {
+					this.post = post
+					this.getLikes();
+				})
+		})
+	}
 
-  onDeletePost(post) {
-    this.postsService.deletePost(post.id).subscribe(() => {
-      this.location.back()
-    })
-  }  
+	onDeletePost(post) {
+		this.postsService.deletePost(post.id).subscribe(() => {
+			Swal.fire(
+				'Supprimé!',
+				'Post Supprimé !',
+				'warning'
+			)
+			this.location.back()
+		})
+	}
 
-  // LIKES DISLIKES //
-  // likeDislike(publicationLike) {
-  //   this.likeService.likePost(publicationLike)
-  //     .subscribe(() => {
-  //       this.getOnePost();
-  //     });
-  // }
+	// LIKES DISLIKES //
+	// likeDislike(publicationLike) {
+	//   this.likeService.likePost(publicationLike)
+	//     .subscribe(() => {
+	//       this.getOnePost();
+	//     });
+	// }
 
-  onLikePost(post) {
-    const publicationLike = {
-      postId: post.id,
-      likes: 1,
-      userId: this.authService.getUserId()
-    };
-    
-    // this.likeDislike(publicationLike)
-    this.likeService.likePost(publicationLike, this.postId)
-      .subscribe(() => {
-        this.getLikes();
-      });
-  }
+	onLikePost(post) {
+		const publicationLike = {
+			postId: post.id,
+			likes: 1,
+			userId: this.authService.getUserId()
+		};
 
-  onDislikePost(post) {
-    const publicationLike = {
-      postId: post.id,
-      likes: -1,
-    };
-    this.likeService.likePost(publicationLike, this.postId)
-      .subscribe(() => {
-        this.getLikes();
-      });
-  }
-  getLikes() {
-    this.likeService.getLikes(this.postId).subscribe({
-      next: like => this.likes = like,
-      error: error => console.error (error)
-    })
-  }
+		// this.likeDislike(publicationLike)
+		this.likeService.likePost(publicationLike, this.postId)
+			.subscribe(() => {
+				this.getLikes();
+			});
+	}
 
-  // COMMENTS //
-  initForm() {
-    this.commentForm = this.formBuilder.group({
-      textComment: ['', Validators.required],
-    });
-  }
+	onDislikePost(post) {
+		const publicationLike = {
+			postId: post.id,
+			likes: -1,
+		};
+		this.likeService.likePost(publicationLike, this.postId)
+			.subscribe(() => {
+				this.getLikes();
+			});
+	}
+	getLikes() {
+		this.likeService.getLikes(this.postId).subscribe({
+			next: like => this.likes = like,
+			error: error => console.error(error)
+		})
+	}
 
-  submitComment(event, post) {
-    if (event.keyCode === 13) {
-      const textComment = this.commentForm.get('textComment').value; 
-      this.commentService.newComment(textComment, post.id).subscribe(()=>{ 
-        this.commentForm.reset()
-        this.getComments()
-        // next: res => this.getComments(),
-        // error: error => console.error (error)
-      })
-    }
-  }
+	// COMMENTS //
+	initForm() {
+		this.commentForm = this.formBuilder.group({
+			textComment: ['', Validators.required],
+		});
+	}
 
-  getComments(){
-    this.route.params.forEach((params) => {
-      this.commentService.getComments(params.id)
-    .subscribe((comment)=>{
-      this.comments = comment
-      console.log(comment)
-      this.getOnePost()
-      }) 
-    })
-  }
+	submitComment(event, post) {
+		if (event.keyCode === 13) {
+			const textComment = this.commentForm.get('textComment').value;
+			this.commentService.newComment(textComment, post.id).subscribe(() => {
+				this.commentForm.reset()
+				this.getComments()
+			})
+		}
+	}
+
+	getComments() {
+		this.route.params.forEach((params) => {
+			this.commentService.getComments(params.id)
+				.subscribe((comment) => {
+					this.comments = comment
+					this.getOnePost()
+				})
+		})
+	}
 
 }
