@@ -30,7 +30,7 @@ exports.getComment = async (req, res, next) => {
 			where: { postId: req.params.id },
 			include: [{
 			model: db.User, required: true, 
-			as: 'user' 
+			as: 'user',
 		}]
 		});
 		if (comments) {

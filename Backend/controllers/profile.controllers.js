@@ -1,5 +1,8 @@
 const db = require('../models');
 const User = db.User;
+const Like = db.Like;
+const Post = db.Post;
+const Comment = db.Comment;
 const fs = require('fs');
 
 
@@ -45,20 +48,35 @@ exports.editPhoto = async (req, res, next) => {
 };
 
 exports.deleteProfile = (req, res, next) => {
-    User.findOne({ 
-        where: { id: getUserIdFromRequest(req) }
-    })
-	.then(profile => {
-		if (profile.profilePic) {
-			deleteProfileMedia(profile.profilePic);
-		}
-		User.destroy({ 
-			where: { id: getUserIdFromRequest(req) } 
-		})
-		.then(() => res.status(200).json({ message: 'Post supprimé !' }))
-		.catch(error => res.status(403).json({ error }));
-	})
-	.catch(error => res.status(500).json({ error }));
-};
+	Like.destroy({where: {userId: getUserIdFromRequest(req)}})
+	.then(() => 
+	  Comment.destroy({where: {userId: getUserIdFromRequest(req)}})
+	  .then(() => 
+		Post.findAll({where: {userId: getUserIdFromRequest(req)}})
+		  .then(
+			(posts) => {
+			  posts.forEach(
+				(post) => {
+				  Comment.destroy({where: {postId: post.id}})
+				  Like.destroy({where: {postId: post.id}})
+				  Post.destroy({where: {id: post.id}})
+				}
+			  )
+			}
+		  )
+		  .then(() =>
+		  User.findOne({ where: {id: getUserIdFromRequest(req)} })
+			.then(user => {
+			  const filename = user.profilePic.split('/images/')[1];
+			  fs.unlink(`images/${filename}`, () => {
+				User.destroy({ where: {id: getUserIdFromRequest(req)} })
+				.then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
+			  })
+			})
+		  )
+		)
+	  )
+	.catch(error => res.status(400).json({ error }));
+  };
 
 

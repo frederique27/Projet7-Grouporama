@@ -5,29 +5,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Like extends Model {
     static associate(models) {
-      // models.Like.belongsTo(models.User, {
-      //   foreignKey: {
-      //     allowNull: false,
-      //   },
-      // });
-      // models.Like.belongsTo(models.Post, {
-      //   foreignKey: {
-      //     allowNull: false,
-      //   },
-      // });
-
-      
-      // models.User.belongsToMany(models.Post, {
-      //   through: models.Like,
-      //   foreignKey: 'userId',
-      //   otherKey: 'postId',
-      // });
-  
-      // models.Post.belongsToMany(models.User, {
-      //   through: models.Like,
-      //   foreignKey: 'postId',
-      //   otherKey: 'userId',
-      // });
   
       models.Like.belongsTo(models.User, {
         foreignKey: 'userId',

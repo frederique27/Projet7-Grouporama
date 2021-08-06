@@ -5,18 +5,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     static associate(models) {
-
-      // models.User.belongsToMany(models.Post, {
-      //   through: models.Comment,
-      //   foreignKey: 'userId',
-      //   otherKey: 'postId',
-      // });
-  
-      // models.Post.belongsToMany(models.User, {
-      //   through: models.Comment,
-      //   foreignKey: 'postId',
-      //   otherKey: 'userId',
-      // });
   
       models.Comment.belongsTo(models.User, {
         foreignKey: 'userId',
@@ -27,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'postId',
         as: 'post',
         
-      },
-      { onDelete: 'cascade' });
+      })
     }
   };
   Comment.init({

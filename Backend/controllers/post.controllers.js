@@ -1,6 +1,8 @@
 const db = require('../models');
 const dbPost = db.Post;
 const dbUser = db.User;
+const dbComment = db.Comment;
+const dbLike = db.Like;
 const fs = require('fs');
 
 function getUserIdFromRequest(req) {
@@ -9,11 +11,11 @@ function getUserIdFromRequest(req) {
 
 // routes GET
 exports.getAllPosts = async (req, res, next) => {
-    try {
+    try { 
         const posts = await dbPost.findAll({
             include: [{
                 model: db.User,
-                attributes: ['username']
+                attributes: ['username', 'isAdmin']
             }],
             order: [['createdAt', 'DESC']]
         })
@@ -31,10 +33,20 @@ exports.getOnePost = async (req, res, next) => {
         const postId = req.params.id;
         const onePost = await dbPost.findOne({ 
             where: { id: postId },
+            // include: [{
+            //     model: db.User, required: true,
+            //     attributes: ['id', 'username', 'profilePic']
+            // }]
             include: [{
-                model: db.User, required: true,
-                attributes: ['username', 'profilePic']
-            }]
+                model: dbUser,
+                required: true,
+                attributes: ['id', 'username', 'profilePic']
+            },
+             {
+                model: dbLike,
+                required: false,
+                attributes: ['likes', 'userId', 'postId']
+            }],
         })
         if (!onePost) {
             throw new Error(' Sorry , nothing to fetch');
@@ -79,28 +91,43 @@ exports.createPost = async (req, res) => {
 };
 
 
-//routes DELETE
-exports.deletePost = (req, res, next) => {
+// routes DELETE
+exports.deletePost = async (req, res, next) => {
     const postId = req.params.id;
-    dbPost.findOne({ 
-        // attributes: ['id', 'email', 'username', 'isAdmin'],
-        where: { id: postId }
-    }).then(post => {
-        // if (post && post.userId === user.id || user.isAdmin === true) {
-            if (post.photo) {
-                const filename = post.photo.split('/images/')[1];
-                fs.unlink(`images/${filename}`, (err) => {
-                    if (err) throw err;
-                })
-            }
-                dbPost.destroy({ where: { id: postId } })
-                .then(() => res.status(200).json({ message: 'Post supprimé !' }))
-                .catch(error => res.status(403).json({ error }));
-        // } else {
-        //     return res.status(401).json("unauthorized action");
-        // } 
-    })  
-	  .catch(error => res.status(500).json({ error }));
+    try {
+        const user = await dbUser.findOne({ 
+            where: { id: getUserIdFromRequest(req) },
+        })
+        dbPost.findOne({ 
+            where: { id: postId },
+        })
+            .then(publication => {
+                if (publication.userId === user.id || user.admin) {
+                    dbComment.destroy({ where: { postId: publication.id } })
+                        .then(() => {
+                            dbLike.destroy({ where: { postId: publication.id } })
+                                .then(() => {
+                                    if (publication.photo) {
+                                        const filename = publication.photo.split('/images/')[1];
+                                        fs.unlink(`images/${filename}`, (err) => {
+                                            if (err) throw err;
+                                        })
+                                    }
+                                    publication.destroy()
+                                        .then(() => res.status(200).json('publication deleted with success'))
+                                        .catch(() => res.status(500).json("internal server error 1"));
+                                })
+                                .catch(() => res.status(500).json("internal server error 2"));
+                        })
+                        .catch(() => res.status(500).json("internal server error 3"));
+                } else {
+                    return res.status(401).json("unauthorized action");
+                }
+            })
+            .catch(() => res.status(500).json("internal server error 4"));
+    } catch (error) {
+        return res.status(500).json("internal server error 5");
+    }
 };
 
 

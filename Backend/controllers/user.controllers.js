@@ -5,10 +5,6 @@ const db = require('../models');
 const User = db.User;
 const verifInput = require('../middleware/verifInput');
 
-function getUserIdFromRequest(req) {
-	return req.headers.authorization.split(' ')[2]; 
-}
-
 exports.signup = async (req, res, next) => {
 	let emailOk = verifInput.validEmail(req.body.email);
     console.log(emailOk)
@@ -32,12 +28,13 @@ exports.signup = async (req, res, next) => {
 					username: req.body.username,
 					email: req.body.email,
 					password: hash,
-					// isAdmin: 0
+					// isAdmin: true
                     isAdmin: false
 			})
 			.then ((newUser) => {
 				res.status(201).json({
-					'userId': newUser.id,
+					userId: newUser.id,
+					isAdmin: newUser.isAdmin,
 					message : 'User is signed up'
 				})  
 			}) 

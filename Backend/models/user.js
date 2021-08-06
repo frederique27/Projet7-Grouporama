@@ -5,23 +5,8 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // models.User.hasMany(models.Post, { onDelete: "CASCADE", hooks: true });
-      // models.User.hasMany(models.Comment, { onDelete: "CASCADE", hooks: true });
-
-      // models.User.hasMany(models.Post,
-      //   {foreignKey: 'userId'},
-      //   { onDelete: 'cascade' });
       
-      // models.User.hasMany(models.Comment,
-      //   {foreignKey: 'userId'},//
-      //   { onDelete: 'cascade' });
-
-      // models.User.hasMany(models.Like,
-      //   {foreignKey: 'userId'},//
-      //   { onDelete: 'cascade' });
-      // models.User.hasMany(models.Like,
-      //   { onDelete: 'cascade' });
-      }
+    }
   };
   User.init({
     id: {
@@ -48,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     profilePic: DataTypes.STRING,
-    isAdmin: { type: DataTypes.BOOLEAN, default: false }
+    isAdmin: { type: DataTypes.BOOLEAN }
   }, {
     sequelize,
     modelName: 'User',

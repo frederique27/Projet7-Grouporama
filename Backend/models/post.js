@@ -5,25 +5,19 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
-      // models.Post.hasMany(models.Comment, { onDelete: "CASCADE", hooks: true });
 
-      // models.Post.belongsTo(models.User, {
-      //   foreignKey: {
-      //     allowNull: false,
-      //   },
-      // });
       models.Post.belongsTo(models.User, 
         { foreignKey: 'userId' },
-        { onDelete: 'cascade' } //
       );
 
       models.Post.hasMany(models.Comment,
         { foreignKey: 'postId' },
         { onDelete: 'cascade' });
-      
-      // models.Post.hasMany(models.Like,
-      //   { foreignKey: 'postId' },
-      //   { onDelete: 'cascade' });
+
+        models.Post.hasMany(models.Like,
+        { foreignKey: 'postId' },
+        { onDelete: 'cascade' }
+        );
     }
   };
   Post.init({
