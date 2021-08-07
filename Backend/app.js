@@ -39,7 +39,7 @@ app.use(expressShield({
 const { sequelize } = require ('./models')
 
 async function main() {
-  await sequelize.sync()
+  await sequelize.sync() 
     // await sequelize.authenticate()
     .then(() => console.log('sync réussie !'))
     .catch(err => console.log('sync échouée: ' + err));

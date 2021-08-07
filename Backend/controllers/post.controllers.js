@@ -33,10 +33,6 @@ exports.getOnePost = async (req, res, next) => {
         const postId = req.params.id;
         const onePost = await dbPost.findOne({ 
             where: { id: postId },
-            // include: [{
-            //     model: db.User, required: true,
-            //     attributes: ['id', 'username', 'profilePic']
-            // }]
             include: [{
                 model: dbUser,
                 required: true,
@@ -102,7 +98,7 @@ exports.deletePost = async (req, res, next) => {
             where: { id: postId },
         })
             .then(publication => {
-                if (publication.userId === user.id || user.admin) {
+                if (publication.userId === user.id || user.isAdmin) {
                     dbComment.destroy({ where: { postId: publication.id } })
                         .then(() => {
                             dbLike.destroy({ where: { postId: publication.id } })
